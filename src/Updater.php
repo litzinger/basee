@@ -78,7 +78,7 @@ class Updater
     {
         foreach ($this->updateFiles as $file) {
             require_once $this->filePath . '/up_'.$file.'.php';
-            $update = new Update();
+            $update = new \Update();
             $update
                 ->setHookTemplate($this->getHookTemplate())
                 ->doUpdate();
