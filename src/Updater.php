@@ -23,6 +23,11 @@ class Updater
     /**
      * @var array
      */
+    private $hookTemplate = array();
+
+    /**
+     * @var array
+     */
     private $updateFiles = array();
 
     public function __construct() {}
@@ -74,7 +79,9 @@ class Updater
         foreach ($this->updateFiles as $file) {
             require_once $this->filePath . '/up_'.$file.'.php';
             $update = new Update();
-            $update->doUpdate();
+            $update
+                ->setHookTemplate($this->getHookTemplate())
+                ->doUpdate();
         }
     }
 
@@ -112,6 +119,25 @@ class Updater
     public function setFilePath($filePath)
     {
         $this->filePath = $filePath;
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getHookTemplate()
+    {
+        return $this->hookTemplate;
+    }
+
+    /**
+     * @param array $hookTemplate
+     * @return $this
+     */
+    public function setHookTemplate($hookTemplate)
+    {
+        $this->hookTemplate = $hookTemplate;
 
         return $this;
     }
