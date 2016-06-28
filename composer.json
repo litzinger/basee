@@ -1,0 +1,24 @@
+{
+    "name": "litzinger/basee",
+    "type": "library",
+    "description": "Addon base for ExpressionEngine",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Brian Litzinger",
+            "email": "brian.litzinger@jamfsoftware.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.9"
+    },
+    "autoload": {
+        "psr-4": {"Basee\\": "src/"}
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/litzinger/basee"
+        }
+    ]
+}
