@@ -30,6 +30,8 @@ abstract class AbstractUpdate
         $this->validateHookTemplate();
 
         foreach($hooks as $hook) {
+            $hook = array_merge($this->getHookTemplate(), $hook);
+
             /** @var \CI_DB_result $query */
             $query = ee()->db->get_where('extensions', array(
                 'hook' => $hook['hook'],
@@ -37,7 +39,7 @@ abstract class AbstractUpdate
             ));
 
             if($query->num_rows() == 0) {
-                ee()->db->insert('extensions', array_merge($this->getHookTemplate(), $hook));
+                ee()->db->insert('extensions', $hook);
             }
         }
     }
