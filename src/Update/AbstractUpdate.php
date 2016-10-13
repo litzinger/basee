@@ -106,7 +106,7 @@ abstract class AbstractUpdate
     /**
      * @return array
      */
-    protected function getHookTemplate()
+    public function getHookTemplate()
     {
         return $this->hookTemplate;
     }
@@ -115,7 +115,7 @@ abstract class AbstractUpdate
      * @param array $hookTemplate
      * @return $this
      */
-    protected function setHookTemplate($hookTemplate)
+    public function setHookTemplate($hookTemplate)
     {
         $this->hookTemplate = $hookTemplate;
 
