@@ -45,6 +45,33 @@ abstract class AbstractUpdate
     }
 
     /**
+     * @param array $actions
+     * @throws \Exception
+     */
+    protected function addActions($actions = array())
+    {
+        if (empty($actions)) {
+            return;
+        }
+
+        if (!isset($actions['method']) || !isset($actions['class'])) {
+            throw new \Exception('Action keys are missing.');
+        }
+
+        foreach($actions as $action) {
+            /** @var \CI_DB_result $query */
+            $query = ee()->db->get_where('actions', array(
+                'method' => $action['method'],
+                'class' => $action['class']
+            ));
+
+            if($query->num_rows() == 0) {
+                ee()->db->insert('actions', $action);
+            }
+        }
+    }
+
+    /**
      * @param $class
      * @param array $hooks
      */
@@ -61,9 +88,25 @@ abstract class AbstractUpdate
     }
 
     /**
+     * @param $class
+     * @param array $methods
+     */
+    protected function removeActions($class, $methods = array())
+    {
+        if (empty($methods)) {
+            return;
+        }
+
+        ee()->db
+            ->where_in('method', $methods)
+            ->where('class', $class)
+            ->delete('actions');
+    }
+
+    /**
      * @return array
      */
-    public function getHookTemplate()
+    protected function getHookTemplate()
     {
         return $this->hookTemplate;
     }
@@ -72,7 +115,7 @@ abstract class AbstractUpdate
      * @param array $hookTemplate
      * @return $this
      */
-    public function setHookTemplate($hookTemplate)
+    protected function setHookTemplate($hookTemplate)
     {
         $this->hookTemplate = $hookTemplate;
 
