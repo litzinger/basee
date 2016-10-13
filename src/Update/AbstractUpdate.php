@@ -54,11 +54,11 @@ abstract class AbstractUpdate
             return;
         }
 
-        if (!isset($actions['method']) || !isset($actions['class'])) {
-            throw new \Exception('Action keys are missing.');
-        }
-
         foreach($actions as $action) {
+            if (!isset($action['method']) || !isset($action['class'])) {
+                throw new \Exception('Action keys are missing.');
+            }
+
             /** @var \CI_DB_result $query */
             $query = ee()->db->get_where('actions', array(
                 'method' => $action['method'],
