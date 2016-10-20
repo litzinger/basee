@@ -2,6 +2,7 @@
 
 namespace Basee;
 
+use Basee\Update\AbstractUpdate;
 use FilesystemIterator;
 
 /**
@@ -34,10 +35,11 @@ class Updater
 
     /**
      * @param int $currentVersion
+     * @param bool $fetchAll
      * @return $this
      * @throws \Exception
      */
-    public function fetchUpdates($currentVersion = 0)
+    public function fetchUpdates($currentVersion = 0, $fetchAll = false)
     {
         if (!$this->filePath) {
             throw new \Exception('$filePath not defined.');
@@ -61,7 +63,7 @@ class Updater
                 if (version_compare($fileVersion, $currentVersion, '>')) {
                     $remainingUpdates++;
 
-                    if (!$nextUpdate || version_compare($fileVersion, $nextUpdate, '<')) {
+                    if ($fetchAll === true || !$nextUpdate || version_compare($fileVersion, $nextUpdate, '<')) {
                         $nextUpdate = $fileVersion;
                         $nextUpdateFile = substr($fileName, 3, -4);
 
@@ -78,7 +80,9 @@ class Updater
     {
         foreach ($this->updateFiles as $file) {
             require_once $this->filePath . '/up_'.$file.'.php';
-            $update = new \Update();
+            $className = 'Update_' . $file;
+            /** @var AbstractUpdate $update */
+            $update = new $className();
             $update
                 ->setHookTemplate($this->getHookTemplate())
                 ->doUpdate();
