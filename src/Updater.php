@@ -105,7 +105,9 @@ class Updater
         }
 
         require_once $filePath;
-        return new Update();
+        $className = 'Update_' . $file;
+        
+        return new $className();
     }
 
     /**
