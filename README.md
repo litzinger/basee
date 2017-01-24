@@ -36,6 +36,7 @@ class MyModule {
 
 Create an updates folder in your addon, e.g. my-module/updates (you defined the path above in setFilePath)
 
+```
 <?php
 
 use Basee\Update\AbstractUpdate;
