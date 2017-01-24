@@ -34,7 +34,7 @@ class MyModule {
 }
 ```
 
-Create an updates folder in your addon, e.g. my-module/updates (you defined the path above in setFilePath)
+Create an updates folder in your addon, e.g. my-module/updates/up_2_00_00.php (you defined the path above in setFilePath). 
 
 ```
 <?php
