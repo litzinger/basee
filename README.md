@@ -1,5 +1,11 @@
 
-In your upd.my-module.php file Add the following to your update method:
+# Installation
+
+`composer require litzinger/basee`
+
+# Usage
+
+In your upd.mymodule.php file Add the following to your update method. Be sure to set the path to your updates files and your hook template. The hook template will be used for all hooks added via the addHooks() method.
 
 ```
 <?php
@@ -18,7 +24,7 @@ class MyModule {
     {
         $updater = new Updater();
         $updater
-            ->setFilePath(PATH_THIRD.'my-module/updates')
+            ->setFilePath(PATH_THIRD.'mymodule/updates')
             ->setHookTemplate([
                 'class' => MyModule,
                 'settings' => '',
@@ -34,7 +40,7 @@ class MyModule {
 }
 ```
 
-Create an updates folder in your addon, e.g. my-module/updates/up_2_00_00.php (you defined the path above in setFilePath). 
+Create an updates folder in your addon, e.g. mymodule/updates/up_2_00_00.php (you defined the path above in setFilePath). 
 
 ```
 <?php
