@@ -63,7 +63,7 @@ class Updater
                 if (version_compare($fileVersion, $currentVersion, '>')) {
                     $remainingUpdates++;
 
-                    if ($fetchAll === true || !$nextUpdate || version_compare($fileVersion, $nextUpdate, '<')) {
+                    if ($fetchAll === true || !$nextUpdate || version_compare($fileVersion, $nextUpdate, '>')) {
                         $nextUpdate = $fileVersion;
                         $nextUpdateFile = substr($fileName, 3, -4);
 
@@ -106,7 +106,7 @@ class Updater
 
         require_once $filePath;
         $className = 'Update_' . $file;
-        
+
         return new $className();
     }
 
