@@ -4,6 +4,7 @@ namespace Basee;
 
 use Basee\Update\AbstractUpdate;
 use FilesystemIterator;
+use RecursiveDirectoryIterator;
 
 /**
  * @package     ExpressionEngine
@@ -52,7 +53,13 @@ class Updater
             return false;
         }
 
-        $files = new FilesystemIterator($this->filePath);
+        $files = iterator_to_array(
+            new RecursiveDirectoryIterator($this->filePath,
+            FilesystemIterator::SKIP_DOTS | FilesystemIterator::UNIX_PATHS),
+            true
+        );
+
+        ksort($files);
 
         foreach ($files as $file) {
             $fileName = $file->getFilename();
