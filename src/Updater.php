@@ -50,7 +50,7 @@ class Updater
         $remainingUpdates = 0;
 
         if (!is_readable($this->filePath)) {
-            return false;
+            throw new \Exception($this->filePath . ' is not readable or does not exist.');
         }
 
         $files = iterator_to_array(
