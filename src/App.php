@@ -66,6 +66,8 @@ class App
         $features = [
             'livePreview' => '4.1',
             'batchEdit' => '4.1',
+            'sequentialEditing' => '4.2',
+            'createRelationship' => '4.2',
         ];
 
         if (array_key_exists($featureName, $features)) {
