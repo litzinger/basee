@@ -113,7 +113,7 @@ class App
             return url_title($string);
         }
 
-        return (array) ee('Format')->make('Text', $string)->urlSlug();
+        return (string) ee('Format')->make('Text', $string)->urlSlug();
     }
 
     /**
