@@ -128,4 +128,20 @@ class App
 
         return ee('Variables/Parser')->parseTagParameters($args, $defaults);
     }
+
+    /**
+     * @param $var
+     * @param string $prefix
+     * @return mixed
+     */
+    public static function parseVariableProperties($var, $prefix = '')
+    {
+        if (self::isEE3()) {
+            ee()->load->library('api');
+            ee()->legacy_api->instantiate('channel_fields');
+            return ee()->api_channel_fields->get_single_field($var, $prefix);
+        }
+
+        return ee('Variables/Parser')->parseVariableProperties($var, $prefix);
+    }
 }
