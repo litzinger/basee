@@ -35,12 +35,12 @@ class Updater
     public function __construct() {}
 
     /**
-     * @param int $currentVersion
+     * @param string $currentVersion
      * @param bool $fetchAll
      * @return $this
      * @throws \Exception
      */
-    public function fetchUpdates($currentVersion = 0, $fetchAll = false)
+    public function fetchUpdates($currentVersion = '0', $fetchAll = false)
     {
         if (!$this->filePath) {
             throw new \Exception('$filePath not defined.');
