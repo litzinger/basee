@@ -30,6 +30,11 @@ class App
         return self::majorVersion() === 4;
     }
 
+    public static function isEE5()
+    {
+        return self::majorVersion() === 5;
+    }
+
     public static function majorVersion()
     {
         return (int) explode('.', APP_VER)[0];
