@@ -3,7 +3,7 @@
 namespace Basee;
 
 /**
- * Utility functions to assist in making add-ons work in EE3 and EE4
+ * Utility functions to assist in making add-ons work in EE3, EE4, and EE5
 
  * @package     ExpressionEngine
  * @category    Basee
