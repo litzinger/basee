@@ -20,16 +20,49 @@ class App
         return APP_VER;
     }
 
+    /**
+     * @return boolean
+     */
     public static function isEE3()
     {
         return self::majorVersion() === 3;
     }
 
+    /**
+     * @return boolean
+     */
     public static function isEE4()
     {
         return self::majorVersion() === 4;
     }
 
+    /**
+     * @return boolean
+     */
+    public static function isGteEE4()
+    {
+        return self::majorVersion() >= 4;
+    }
+
+    /**
+     * @return boolean
+     */
+    public static function isEE5()
+    {
+        return self::majorVersion() === 5;
+    }
+
+    /**
+     * @return boolean
+     */
+    public static function isGteEE5()
+    {
+        return self::majorVersion() >= 5;
+    }
+
+    /**
+     * @return int
+     */
     public static function majorVersion()
     {
         return (int) explode('.', APP_VER)[0];
