@@ -61,6 +61,22 @@ class App
     }
 
     /**
+     * @return boolean
+     */
+    public static function isEE6()
+    {
+        return self::majorVersion() === 6;
+    }
+
+    /**
+     * @return boolean
+     */
+    public static function isGteEE6()
+    {
+        return self::majorVersion() >= 6;
+    }
+
+    /**
      * @return int
      */
     public static function majorVersion()
@@ -101,6 +117,7 @@ class App
             'batchEdit' => '4.1',
             'sequentialEditing' => '4.2',
             'createRelationship' => '4.2',
+            'fileGrid' => '5.1',
         ];
 
         if (array_key_exists($featureName, $features)) {
