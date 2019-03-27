@@ -47,6 +47,14 @@ class App
     /**
      * @return boolean
      */
+    public static function isLtEE4()
+    {
+        return self::majorVersion() < 4;
+    }
+
+    /**
+     * @return boolean
+     */
     public static function isEE5()
     {
         return self::majorVersion() === 5;
@@ -63,6 +71,14 @@ class App
     /**
      * @return boolean
      */
+    public static function isLtEE5()
+    {
+        return self::majorVersion() < 5;
+    }
+
+    /**
+     * @return boolean
+     */
     public static function isEE6()
     {
         return self::majorVersion() === 6;
@@ -74,6 +90,14 @@ class App
     public static function isGteEE6()
     {
         return self::majorVersion() >= 6;
+    }
+
+    /**
+     * @return boolean
+     */
+    public static function isLtEE6()
+    {
+        return self::majorVersion() < 6;
     }
 
     /**
@@ -193,5 +217,40 @@ class App
         }
 
         return ee('Variables/Parser')->parseVariableProperties($var, $prefix);
+    }
+
+    /**
+     * @param string    $name
+     * @param int|null  $siteId
+     * @return mixed
+     */
+    public static function getSitePreference($name, $siteId = null)
+    {
+        $siteId = $siteId ?: ee()->config->item('site_id');
+
+        if (self::isLtEE6()) {
+            $prefs = ee('db')
+                ->select('site_system_preferences')
+                ->where('site_id', $siteId)
+                ->get('sites')
+                ->row('site_system_preferences');
+
+            $prefs = unserialize(base64_decode($prefs));
+
+            if (isset($prefs[$name])) {
+                return $prefs[$name];
+            }
+
+            return null;
+        }
+
+        // @todo, is there a better service for this?
+        $pref = ee('db')
+            ->select($name)
+            ->where('site_id', $siteId)
+            ->get('config')
+            ->row($name);
+
+        return $pref->row($name);
     }
 }
