@@ -47,6 +47,14 @@ class App
     /**
      * @return boolean
      */
+    public static function isLtEE4()
+    {
+        return self::majorVersion() < 4;
+    }
+
+    /**
+     * @return boolean
+     */
     public static function isEE5()
     {
         return self::majorVersion() === 5;
@@ -63,6 +71,14 @@ class App
     /**
      * @return boolean
      */
+    public static function isLtEE5()
+    {
+        return self::majorVersion() < 5;
+    }
+
+    /**
+     * @return boolean
+     */
     public static function isEE6()
     {
         return self::majorVersion() === 6;
@@ -74,6 +90,14 @@ class App
     public static function isGteEE6()
     {
         return self::majorVersion() >= 6;
+    }
+
+    /**
+     * @return boolean
+     */
+    public static function isLtEE6()
+    {
+        return self::majorVersion() < 6;
     }
 
     /**
@@ -193,5 +217,66 @@ class App
         }
 
         return ee('Variables/Parser')->parseVariableProperties($var, $prefix);
+    }
+
+    /**
+     * @param string    $name
+     * @param int|null  $siteId
+     * @return mixed|string
+     */
+    public static function config($name, $siteId = null)
+    {
+        if ($siteId === null) {
+            return ee()->config->item($name);
+        }
+
+        if (self::isLtEE6()) {
+            $prefs = ee('db')
+                ->select('site_system_preferences')
+                ->where('site_id', $siteId)
+                ->get('sites')
+                ->row('site_system_preferences');
+
+            $prefs = unserialize(base64_decode($prefs));
+
+            if (isset($prefs[$name])) {
+                return parse_config_variables($prefs[$name]);
+            }
+
+            return null;
+        }
+
+        /** @var \CI_DB_result $pref */
+        $pref = ee('db')
+            ->select('value')
+            ->where('site_id', $siteId)
+            ->where('key', $name)
+            ->get('config');
+
+        if ($pref->num_rows() !== 1) {
+            return null;
+        }
+
+        return parse_config_variables($pref->row('value'));
+    }
+
+    /**
+     * @param      $name
+     * @param null $siteId
+     * @return mixed|string
+     */
+    public static function configSlashed($name, $siteId = null)
+    {
+        $value = self::config($name, $siteId);
+
+        if ($value != '' && substr($value, -1) != '/') {
+            $value .= '/';
+        }
+
+        if (defined('EE_APPPATH')) {
+            $value = str_replace(APPPATH, EE_APPPATH, $value);
+        }
+
+        return $value;
     }
 }
