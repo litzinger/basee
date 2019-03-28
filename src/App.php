@@ -222,11 +222,13 @@ class App
     /**
      * @param string    $name
      * @param int|null  $siteId
-     * @return mixed
+     * @return mixed|string
      */
-    public static function getSitePreference($name, $siteId = null)
+    public static function config($name, $siteId = null)
     {
-        $siteId = $siteId ?: ee()->config->item('site_id');
+        if ($siteId === null) {
+            return ee()->config->item($name);
+        }
 
         if (self::isLtEE6()) {
             $prefs = ee('db')
@@ -238,19 +240,43 @@ class App
             $prefs = unserialize(base64_decode($prefs));
 
             if (isset($prefs[$name])) {
-                return $prefs[$name];
+                return parse_config_variables($prefs[$name]);
             }
 
             return null;
         }
 
-        // @todo, is there a better service for this?
+        /** @var \CI_DB_result $pref */
         $pref = ee('db')
-            ->select($name)
+            ->select('value')
             ->where('site_id', $siteId)
-            ->get('config')
-            ->row($name);
+            ->where('key', $name)
+            ->get('config');
 
-        return $pref->row($name);
+        if ($pref->num_rows() !== 1) {
+            return null;
+        }
+
+        return parse_config_variables($pref->row('value'));
+    }
+
+    /**
+     * @param      $name
+     * @param null $siteId
+     * @return mixed|string
+     */
+    public static function configSlashed($name, $siteId = null)
+    {
+        $value = self::config($name, $siteId);
+
+        if ($value != '' && substr($value, -1) != '/') {
+            $value .= '/';
+        }
+
+        if (defined('EE_APPPATH')) {
+            $value = str_replace(APPPATH, EE_APPPATH, $value);
+        }
+
+        return $value;
     }
 }
