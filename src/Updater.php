@@ -10,7 +10,7 @@ use RecursiveDirectoryIterator;
  * @package     ExpressionEngine
  * @category    Basee
  * @author      Brian Litzinger
- * @copyright   Copyright (c) 2016-2018 - Brian Litzinger
+ * @copyright   Copyright (c) 2016-2019 - Brian Litzinger
  * @link        https://github.com/litzinger/basee
  * @license     MIT
  */
