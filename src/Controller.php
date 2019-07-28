@@ -101,7 +101,7 @@ abstract class Controller
     /**
      * Constructor
      */
-    function __construct()
+    protected function __construct()
     {
         ee()->lang->loadfile('settings');
         ee()->load->library('form_validation');
