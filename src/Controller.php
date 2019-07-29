@@ -428,7 +428,12 @@ abstract class Controller
             $view = $this->viewFile;
         }
 
-        $viewFile = sprintf('%s:%s', $this->addonName, $view);
+        if (substr($view, 0 ,3) === 'ee:') {
+            $viewFile = $view;
+        } else {
+            $viewFile = sprintf('%s:%s', $this->addonName, $view);
+        }
+
         /** @var View $view */
         $view = ee('View')->make($viewFile);
         $vars = $this->getVars();
