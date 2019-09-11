@@ -297,7 +297,6 @@ abstract class Controller
 
                     // For removal modals. EE automatically renders the modal to the page, just setting values.
                     // Requires the m-link.click bit in publisher.cp.js though.
-                    // @todo generalize
                     //if (isset($child['entityId'])) {
                     //    $list->withRemovalKey('entityId');
                     //    $item->identifiedBy($child['entityId']);
@@ -720,7 +719,7 @@ abstract class Controller
      */
     public function getEntityId()
     {
-        return $this->entityId;
+        return (int) $this->entityId;
     }
 
     /**
@@ -729,7 +728,7 @@ abstract class Controller
      */
     public function setEntityId($entityId)
     {
-        $this->entityId = $entityId;
+        $this->entityId = (int) $entityId;
 
         return $this;
     }

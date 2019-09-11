@@ -8,7 +8,7 @@ if ( !defined('BASEPATH')) exit('No direct script access allowed');
  * @package     ExpressionEngine
  * @category    Basee
  * @author      Brian Litzinger
- * @copyright   Copyright (c) 2016-2019 - Brian Litzinger
+ * @copyright   Copyright (c) 2019 - BoldMinded, LLC
  * @link        https://github.com/litzinger/basee
  * @license     MIT
  */
@@ -36,6 +36,15 @@ class StringHelper
     public static function classify($word)
     {
         return str_replace(' ', '', ucwords(str_replace(array('-', '_'), ' ', $word)));
+    }
+
+    /**
+     * @param $word
+     * @return string
+     */
+    public static function titleCase($word)
+    {
+        return ucwords(str_replace(array('-', '_'), ' ', $word));
     }
 
     /**
