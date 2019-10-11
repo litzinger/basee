@@ -508,20 +508,12 @@ abstract class Controller
     }
 
     /**
-     * See if the current user can access a Publisher settings pages
+     * See if the current user can access the requested settings page
      *
      * @return mixed
      */
     protected function authorize()
     {
-        return $this;
-
-        // @todo generalize
-        if (!$this->canAdminPublisher()) {
-            $url = $this->controlPanel->getActionUrl('publisher/view_unauthorized');
-            ee()->functions->redirect($url);
-        }
-
         return $this;
     }
 
