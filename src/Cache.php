@@ -98,4 +98,22 @@ class Cache
 
         return $prefix.'/'.$key;
     }
+
+    /**
+     * @param array $params
+     * @return bool
+     */
+    public function isCacheEnabled($params)
+    {
+        return bool_config_item($this->namespace.'_cache_enabled') || get_bool_from_string($params['cache']);
+    }
+
+    /**
+     * @param array $params
+     * @return int
+     */
+    public function getCacheLifetime($params)
+    {
+        return $params['cache_lifetime'] ?? $this->lifetime;
+    }
 }
