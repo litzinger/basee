@@ -279,4 +279,48 @@ class App
 
         return $value;
     }
+
+    /**
+     * @param $addonName
+     * @return bool
+     */
+    public static function isInstallingAddon($addonName)
+    {
+        $path = implode('/', ee()->uri->segments);
+
+        if (preg_match('#cp\/(addons\/install)\/'. $addonName .'#', $path, $matches)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @param $addonName
+     * @return bool
+     */
+    public static function isUninstallingAddon($addonName)
+    {
+        if (isset($_POST['bulk_action']) && $_POST['bulk_action'] === 'remove' &&
+            isset($_POST['selection']) && !empty($_POST['selection']) &&
+            in_array($addonName, $_POST['selection'])
+        ) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @param $addonName
+     * @return bool
+     */
+    public static function isInstallingOrUninstallingAddon($addonName)
+    {
+        if (self::isInstallingAddon($addonName) || self::isUninstallingAddon($addonName)) {
+            return true;
+        }
+
+        return false;
+    }
 }
