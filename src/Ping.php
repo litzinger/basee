@@ -33,11 +33,7 @@ class Ping
     {
         $lastPing = $this->getCache()->get($this->fileName, Cache::GLOBAL_SCOPE);
 
-        if (!$lastPing || $lastPing + $this->ttl <= time()) {
-            return true;
-        }
-
-        return false;
+        return (!$lastPing || $lastPing + $this->ttl <= time());
     }
 
     public function updateLastPing()

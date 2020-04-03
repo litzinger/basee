@@ -288,11 +288,7 @@ class App
     {
         $path = implode('/', ee()->uri->segments);
 
-        if (preg_match('#cp\/(addons\/install)\/'. $addonName .'#', $path, $matches)) {
-            return true;
-        }
-
-        return false;
+        return preg_match('#cp\/(addons\/install)\/'. $addonName .'#', $path, $matches);
     }
 
     /**
@@ -301,14 +297,10 @@ class App
      */
     public static function isUninstallingAddon($addonName)
     {
-        if (isset($_POST['bulk_action']) && $_POST['bulk_action'] === 'remove' &&
+        return (isset($_POST['bulk_action']) && $_POST['bulk_action'] === 'remove' &&
             isset($_POST['selection']) && !empty($_POST['selection']) &&
             in_array($addonName, $_POST['selection'])
-        ) {
-            return true;
-        }
-
-        return false;
+        );
     }
 
     /**
@@ -317,10 +309,6 @@ class App
      */
     public static function isInstallingOrUninstallingAddon($addonName)
     {
-        if (self::isInstallingAddon($addonName) || self::isUninstallingAddon($addonName)) {
-            return true;
-        }
-
-        return false;
+        return (self::isInstallingAddon($addonName) || self::isUninstallingAddon($addonName));
     }
 }

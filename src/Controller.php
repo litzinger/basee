@@ -467,26 +467,24 @@ abstract class Controller
     {
         $fields = [];
 
-        if (!empty($fieldOptions)) {
-            foreach($fieldOptions as $key => $options) {
-                $value = isset($values[$key]) ? $values[$key] : $options['value'];
+        foreach($fieldOptions as $key => $options) {
+            $value = isset($values[$key]) ? $values[$key] : $options['value'];
 
-                $field = [
-                    'title' => $options['title'],
-                    'fields' => [
-                        $key => [
-                            'type' => $options['type'],
-                            'value' => $value,
-                        ]
+            $field = [
+                'title' => $options['title'],
+                'fields' => [
+                    $key => [
+                        'type' => $options['type'],
+                        'value' => $value,
                     ]
-                ];
+                ]
+            ];
 
-                if (isset($options['desc']) && $options['desc'] != '') {
-                    $field['desc'] = $options['desc'];
-                }
-
-                $fields[] = $field;
+            if (isset($options['desc']) && $options['desc'] != '') {
+                $field['desc'] = $options['desc'];
             }
+
+            $fields[] = $field;
         }
 
         return $fields;
