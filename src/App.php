@@ -23,7 +23,7 @@ class App
     /**
      * @return boolean
      */
-    public static function isEE3()
+    public static function isEE3(): bool
     {
         return self::majorVersion() === 3;
     }
@@ -31,7 +31,7 @@ class App
     /**
      * @return boolean
      */
-    public static function isEE4()
+    public static function isEE4(): bool
     {
         return self::majorVersion() === 4;
     }
@@ -39,7 +39,7 @@ class App
     /**
      * @return boolean
      */
-    public static function isGteEE4()
+    public static function isGteEE4(): bool
     {
         return self::majorVersion() >= 4;
     }
@@ -47,7 +47,7 @@ class App
     /**
      * @return boolean
      */
-    public static function isLtEE4()
+    public static function isLtEE4(): bool
     {
         return self::majorVersion() < 4;
     }
@@ -55,7 +55,7 @@ class App
     /**
      * @return boolean
      */
-    public static function isEE5()
+    public static function isEE5(): bool
     {
         return self::majorVersion() === 5;
     }
@@ -63,7 +63,7 @@ class App
     /**
      * @return boolean
      */
-    public static function isGteEE5()
+    public static function isGteEE5(): bool
     {
         return self::majorVersion() >= 5;
     }
@@ -71,7 +71,7 @@ class App
     /**
      * @return boolean
      */
-    public static function isLtEE5()
+    public static function isLtEE5(): bool
     {
         return self::majorVersion() < 5;
     }
@@ -79,7 +79,7 @@ class App
     /**
      * @return boolean
      */
-    public static function isEE6()
+    public static function isEE6(): bool
     {
         return self::majorVersion() === 6;
     }
@@ -87,7 +87,7 @@ class App
     /**
      * @return boolean
      */
-    public static function isGteEE6()
+    public static function isGteEE6(): bool
     {
         return self::majorVersion() >= 6;
     }
@@ -95,7 +95,7 @@ class App
     /**
      * @return boolean
      */
-    public static function isLtEE6()
+    public static function isLtEE6(): bool
     {
         return self::majorVersion() < 6;
     }
@@ -103,7 +103,7 @@ class App
     /**
      * @return int
      */
-    public static function majorVersion()
+    public static function majorVersion(): int
     {
         return (int) explode('.', APP_VER)[0];
     }
@@ -113,7 +113,7 @@ class App
      *
      * @return string
      */
-    public static function viewBoxClass()
+    public static function viewBoxClass(): string
     {
         return self::isEE3() ? 'box' : '';
     }
@@ -121,7 +121,7 @@ class App
     /**
      * @return string
      */
-    public static function viewFolder()
+    public static function viewFolder(): string
     {
         return self::isEE3() ? 'ee3/' : 'ee4/';
     }
@@ -129,9 +129,22 @@ class App
     /**
      * @return string
      */
-    public static function roleIdAttributeName()
+    public static function roleIdAttributeName(): string
     {
         return self::isLtEE6() ? 'group_id' : 'role_id';
+    }
+
+    /**
+     * @param string $attributeName
+     * @return string
+     */
+    public static function userData(string $attributeName): string
+    {
+        if ($attributeName === 'role_id' && self::isLtEE6()) {
+            $attributeName = 'group_id';
+        }
+
+        return ee()->session->userdata[$attributeName] ?? '';
     }
 
     /**
@@ -139,10 +152,10 @@ class App
      * in which they were released and possibly change functionality
      * of this add-on based on the current EE version.
      *
-     * @param $featureName
+     * @param string $featureName
      * @return bool
      */
-    public static function isFeatureAvailable($featureName)
+    public static function isFeatureAvailable(string $featureName): bool
     {
         $features = [
             'livePreview' => '4.1',
@@ -162,10 +175,10 @@ class App
     }
 
     /**
-     * @param $fieldName
+     * @param string $fieldName
      * @return string
      */
-    public static function getFieldTableName($fieldName)
+    public static function getFieldTableName(string $fieldName): string
     {
         $db = ee('db');
 
@@ -187,10 +200,10 @@ class App
     }
 
     /**
-     * @param $string
+     * @param string $string
      * @return string
      */
-    public static function makeUrlTitle($string)
+    public static function makeUrlTitle(string $string): string
     {
         if (self::isEE3()) {
             ee()->load->helper('url_helper');
@@ -204,7 +217,7 @@ class App
      * @param string $args
      * @return array
      */
-    public static function parseTagParameters($args, $defaults = [])
+    public static function parseTagParameters(string $args, array $defaults = []): array
     {
         if (self::isEE3()) {
             return ee()->functions->assign_parameters($args, $defaults);
@@ -214,11 +227,11 @@ class App
     }
 
     /**
-     * @param $var
+     * @param string $var
      * @param string $prefix
-     * @return mixed
+     * @return array
      */
-    public static function parseVariableProperties($var, $prefix = '')
+    public static function parseVariableProperties(string $var, string $prefix = ''): array
     {
         if (self::isEE3()) {
             ee()->load->library('api');
@@ -271,11 +284,11 @@ class App
     }
 
     /**
-     * @param      $name
+     * @param string $name
      * @param null $siteId
      * @return mixed|string
      */
-    public static function configSlashed($name, $siteId = null)
+    public static function configSlashed(string $name, $siteId = null)
     {
         $value = self::config($name, $siteId);
 
@@ -291,10 +304,10 @@ class App
     }
 
     /**
-     * @param $addonName
+     * @param string $addonName
      * @return bool
      */
-    public static function isInstallingAddon($addonName)
+    public static function isInstallingAddon(string $addonName): bool
     {
         $path = implode('/', ee()->uri->segments);
 
@@ -302,10 +315,10 @@ class App
     }
 
     /**
-     * @param $addonName
+     * @param string $addonName
      * @return bool
      */
-    public static function isUninstallingAddon($addonName)
+    public static function isUninstallingAddon(string $addonName): bool
     {
         return (isset($_POST['bulk_action']) && $_POST['bulk_action'] === 'remove' &&
             isset($_POST['selection']) && !empty($_POST['selection']) &&
@@ -314,10 +327,10 @@ class App
     }
 
     /**
-     * @param $addonName
+     * @param string $addonName
      * @return bool
      */
-    public static function isInstallingOrUninstallingAddon($addonName)
+    public static function isInstallingOrUninstallingAddon(string $addonName): bool
     {
         return (self::isInstallingAddon($addonName) || self::isUninstallingAddon($addonName));
     }
