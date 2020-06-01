@@ -127,6 +127,14 @@ class App
     }
 
     /**
+     * @return string
+     */
+    public static function roleIdAttributeName()
+    {
+        return self::isLtEE6() ? 'group_id' : 'role_id';
+    }
+
+    /**
      * Use a collection of native EE features and the version
      * in which they were released and possibly change functionality
      * of this add-on based on the current EE version.
@@ -142,6 +150,8 @@ class App
             'sequentialEditing' => '4.2',
             'createRelationship' => '4.2',
             'fileGrid' => '5.1',
+            'entryEditList' => '6.0', // Improved entry edit list screen
+            'jumpMenu' => '6.0',
         ];
 
         if (array_key_exists($featureName, $features)) {
