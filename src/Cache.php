@@ -105,7 +105,7 @@ class Cache implements CacheInterface
      */
     public function isCacheEnabled($params = [])
     {
-        return bool_config_item($this->namespace.'_cache_enabled') || get_bool_from_string($params['cache']);
+        return bool_config_item($this->namespace.'_cache_enabled') || (isset($params['cache']) && get_bool_from_string($params['cache']));
     }
 
     /**
