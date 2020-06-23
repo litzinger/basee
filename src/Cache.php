@@ -119,6 +119,8 @@ class Cache implements CacheInterface
     }
 
     /**
+     * Is caching enabled for a specific add-on, or template tag?
+     *
      * @param array $params
      * @return bool
      */
