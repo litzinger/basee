@@ -24,6 +24,11 @@ class Cache implements CacheInterface
     private $namespace;
 
     /**
+     * @var string
+     */
+    private $scope = '';
+
+    /**
      * @var int
      */
     private $lifetime;
@@ -92,11 +97,25 @@ class Cache implements CacheInterface
      */
     public function getKey($key, $usePrefix = true)
     {
+        $prefix = '';
+
         if ($usePrefix) {
             $prefix = $this->namespace;
         }
 
-        return $prefix.'/'.$key;
+        if ($this->scope !== '') {
+            $prefix .= '/' . $this->scope;
+        }
+
+        return trim($prefix.'/'.$key, '/');
+    }
+
+    /**
+     * @param string $scope
+     */
+    public function setScope($scope = '')
+    {
+        $this->scope = $scope;
     }
 
     /**
