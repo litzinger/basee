@@ -11,7 +11,7 @@ namespace Basee;
  * @license     MIT
  */
 
-class Cache
+class Cache implements CacheInterface
 {
     /**
      * @var object
@@ -90,7 +90,7 @@ class Cache
      * @param  bool $usePrefix
      * @return string
      */
-    private function getKey($key, $usePrefix = true)
+    public function getKey($key, $usePrefix = true)
     {
         if ($usePrefix) {
             $prefix = $this->namespace;
@@ -103,7 +103,7 @@ class Cache
      * @param array $params
      * @return bool
      */
-    public function isCacheEnabled($params)
+    public function isCacheEnabled($params = [])
     {
         return bool_config_item($this->namespace.'_cache_enabled') || get_bool_from_string($params['cache']);
     }
@@ -112,7 +112,7 @@ class Cache
      * @param array $params
      * @return int
      */
-    public function getCacheLifetime($params)
+    public function getCacheLifetime($params = [])
     {
         return $params['cache_lifetime'] ?? $this->lifetime;
     }
