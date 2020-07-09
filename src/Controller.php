@@ -11,6 +11,7 @@ namespace Basee;
  * @license     MIT
  */
 
+use Basee\Helper\StringHelper;
 use Basee\Model\SaveResponse;
 use Closure;
 use EllisLab\ExpressionEngine\Service\Sidebar\FolderItem;
@@ -498,7 +499,7 @@ abstract class Controller
     protected function callControllerAction()
     {
         if ($actionName = $this->getActionName()) {
-            $actionName = \Basee\Helper\StringHelper::camelize($actionName.'-action');
+            $actionName = StringHelper::camelize($actionName.'-action');
             return $this->$actionName();
         }
 
