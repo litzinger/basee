@@ -320,6 +320,14 @@ class App
      */
     public static function isUninstallingAddon(string $addonName): bool
     {
+        $path = implode('/', ee()->uri->segments);
+
+        // EE6+
+        if (preg_match('#cp\/(addons\/remove)\/'. $addonName .'#', $path, $matches)) {
+            return true;
+        }
+
+        // Legacy
         return (isset($_POST['bulk_action']) && $_POST['bulk_action'] === 'remove' &&
             isset($_POST['selection']) && !empty($_POST['selection']) &&
             in_array($addonName, $_POST['selection'])
