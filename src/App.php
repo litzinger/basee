@@ -335,11 +335,15 @@ class App
     }
 
     /**
-     * @param string $addonName
+     * Ajax request isn't really installing or uninstalling, but if an add-on is making an ajax request in the
+     * background, and the timing of a license check happens to be triggered from the ajax request, it can cause
+     * the request to fail and may be hard to debug.
+     *
+     * @param $addonName
      * @return bool
      */
     public static function isInstallingOrUninstallingAddon(string $addonName): bool
     {
-        return (self::isInstallingAddon($addonName) || self::isUninstallingAddon($addonName));
+        return (AJAX_REQUEST || self::isInstallingAddon($addonName) || self::isUninstallingAddon($addonName));
     }
 }

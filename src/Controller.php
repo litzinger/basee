@@ -481,7 +481,7 @@ abstract class Controller
                 ]
             ];
 
-            if (isset($options['desc']) && $options['desc'] != '') {
+            if (isset($options['desc']) && $options['desc'] !== '') {
                 $field['desc'] = $options['desc'];
             }
 
