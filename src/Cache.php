@@ -80,7 +80,7 @@ class Cache implements CacheInterface
     public function delete($key = null, $usePrefix = true)
     {
         if ($key && $usePrefix) {
-            $this->driver->delete($this->getKey($key, $usePrefix));
+            $this->driver->delete($this->getKey($key, $usePrefix).'/');
         } elseif ($key) {
             $this->driver->delete($this->namespace.'/'.$key.'/');
         } else {
