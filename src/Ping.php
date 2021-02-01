@@ -6,6 +6,12 @@ use Cache;
 
 class Ping
 {
+    const STATUSES = [
+        'invalid',
+        'update_available',
+        'expired',
+    ];
+
     /**
      * @var int
      */
@@ -27,18 +33,51 @@ class Ping
     }
 
     /**
+     * @return mixed
+     */
+    public function getLastPing()
+    {
+        return $this->getCache()->get($this->fileName, Cache::GLOBAL_SCOPE);
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getLastPingStatus()
+    {
+        $lastPing = $this->getLastPing();
+
+        // If its an array, its the newer format that also contains a last known status.
+        if ($lastPing && is_array($lastPing) && isset($lastPing['status'])) {
+            return $lastPing['status'];
+        }
+
+        return null;
+    }
+
+    /**
      * @return bool
      */
     public function shouldPing()
     {
-        $lastPing = $this->getCache()->get($this->fileName, Cache::GLOBAL_SCOPE);
+        $lastPing = $this->getLastPing();
+
+        // If its an array, its the newer format that also contains a last known status.
+        if ($lastPing && is_array($lastPing) && isset($lastPing['time'])) {
+            $lastPing = $lastPing['time'];
+        }
 
         return (!$lastPing || $lastPing + $this->ttl <= time());
     }
 
-    public function updateLastPing()
+    /**
+     * @param string $status
+     */
+    public function updateLastPing(string $status = '')
     {
-        $this->getCache()->save($this->fileName, time(), $this->ttl, Cache::GLOBAL_SCOPE);
+        $value = ['status' => $status, 'time' => time()];
+
+        $this->getCache()->save($this->fileName, $value, $this->ttl, Cache::GLOBAL_SCOPE);
     }
 
     /**

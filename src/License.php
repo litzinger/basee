@@ -88,9 +88,8 @@ class License
     {
         $ping = new Ping($this->addonShortName . '_last_ping', 2400);
 
+        // Has it been more than 1 hour since the last ping? If so get an update.
         if (self::DEBUG || $ping->shouldPing()) {
-            $ping->updateLastPing();
-
             $response = $this->checkLicense([
                 'payload' => base64_encode(json_encode($this->payload))
             ]);
@@ -99,12 +98,21 @@ class License
                 $response['status'] = 'invalid';
             }
 
+            $ping->updateLastPing($response['status']);
+
             if (
                 $response !== null && isset($response['status']) &&
                 (!$this->payload['l'] || in_array($response['status'], self::STATUSES))
             ) {
                 return $this->displayValidationMessage($response['status']);
             }
+        }
+
+        // If we have an invalid status, and we're between pings, we still need to display a potential invalid status
+        $lastPingStatus = $ping->getLastPingStatus();
+
+        if (in_array($lastPingStatus, self::STATUSES)) {
+            return $this->displayValidationMessage($lastPingStatus);
         }
 
         return '';
