@@ -58,6 +58,15 @@ class Ping
     /**
      * @return bool
      */
+    public function clearPingStatus()
+    {
+        return $this->getCache()->delete($this->fileName, Cache::GLOBAL_SCOPE);
+    }
+
+
+    /**
+     * @return bool
+     */
     public function shouldPing()
     {
         $lastPing = $this->getLastPing();
