@@ -47,8 +47,11 @@ class License
     {
         $this->licenseCheckUrl = $licenseCheckUrl;
         $this->addonShortName = $addonShortName;
-        $this->addonName = $payload['a'];
-        $this->payload = $payload;
+
+        if (!empty($payload)) {
+            $this->addonName = $payload['a'];
+            $this->payload = $payload;
+        }
 
         if ($licenseAccountUrl) {
             $this->licenseAccountUrl = $licenseAccountUrl;
