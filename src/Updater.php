@@ -35,6 +35,11 @@ class Updater
     public function __construct() {}
 
     /**
+     * Check to see if the installed version is less than what is reported by the add-on package.
+     * E.g. the user added new files. Optionally redirect to the Add-ons page to encourage an upgrade.
+     * Call this function in an ft or mod file constructor to prevent the user from seeing php errors
+     * because the new version might contain db changes before they've been executed via the upgrade.
+     *
      * @param string $addonName
      * @param bool   $redirect
      * @return bool
