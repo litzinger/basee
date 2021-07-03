@@ -35,6 +35,29 @@ class Updater
     public function __construct() {}
 
     /**
+     * @param string $addonName
+     * @param bool   $redirect
+     * @return bool
+     */
+    public function shouldUpdate(string $addonName = '', bool $redirect = false): bool
+    {
+        $addon = ee('App')->get($addonName);
+        $installed = ee()->addons->get_installed('modules');
+
+        if (isset($installed[$addonName]['module_version']) &&
+            version_compare($installed[$addonName]['module_version'], $addon->getVersion(), '<')
+        ) {
+            if ($redirect) {
+                ee()->functions->redirect(ee('CP/URL')->make('addons'));
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * @param string $currentVersion
      * @param bool $fetchAll
      * @return $this
