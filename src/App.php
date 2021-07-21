@@ -311,7 +311,7 @@ class App
     {
         $path = implode('/', ee()->uri->segments);
 
-        return preg_match('#cp\/(addons\/install)\/'. $addonName .'#', $path, $matches);
+        return boolval(preg_match('#cp\/(addons\/install)\/'. $addonName .'#', $path, $matches));
     }
 
     /**
