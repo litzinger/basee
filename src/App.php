@@ -136,9 +136,9 @@ class App
 
     /**
      * @param string $attributeName
-     * @return string
+     * @return mixed
      */
-    public static function userData(string $attributeName): string
+    public static function userData(string $attributeName)
     {
         if ($attributeName === 'role_id' && self::isLtEE6()) {
             $attributeName = 'group_id';
