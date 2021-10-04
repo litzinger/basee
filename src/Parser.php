@@ -153,7 +153,15 @@ class Parser
                     break;
                 case 'set':
                     if ($scope) {
-                        $this->scopedVariables[$scope][$params['name']] = $value;
+                        // Are we scoping to more than 1 thing at a time?
+                        if (strpos($scope,'|')) {
+                            $collection = explode('|', $scope);
+                            foreach ($collection as $scopeValue) {
+                                $this->scopedVariables[$scopeValue][$params['name']] = $value;
+                            }
+                        } else {
+                            $this->scopedVariables[$scope][$params['name']] = $value;
+                        }
                     } else {
                         $this->variables[$params['name']] = $value;
                     }
