@@ -101,7 +101,7 @@ class Parser
         while ($pos !== false) {
             $tag = ee('Variables/Parser')->getFullTag($this->template, substr($this->template, $pos, $tagOpenLength));
             $params = ee('Variables/Parser')->parseTagParameters(substr($tag, $tagOpenLength));
-            $scope = $params['scope'] ?? null;
+            $scope = $params['scope'] ?? '';
 
             // suss out if this was layout:set, layout:set:append, or layout:set:prepend
             // first remove the parameters from the full tag so we can split by :
@@ -130,45 +130,10 @@ class Parser
             // Remove the setter from the template
             $this->template = substr_replace($this->template, '', $pos, $replace_len);
 
-            switch ($command) {
-                case 'append':
-                    if ($scope) {
-                        $this->scopedVariables[$scope][$params['name']][] = $value;
-                    } else {
-                        $this->variables[$params['name']][] = $value;
-                    }
+            $methodName = 'command' . ucfirst($command);
 
-                    break;
-                case 'prepend':
-                    if (!isset($this->variables[$params['name']])) {
-                        $this->variables[$params['name']] = [];
-                    }
-
-                    if ($scope) {
-                        array_unshift($this->scopedVariables[$scope][$params['name']], $value);
-                    } else {
-                        array_unshift($this->variables[$params['name']], $value);
-                    }
-
-                    break;
-                case 'set':
-                    if ($scope) {
-                        // Are we scoping to more than 1 thing at a time?
-                        if (strpos($scope,'|')) {
-                            $collection = explode('|', $scope);
-                            foreach ($collection as $scopeValue) {
-                                $this->scopedVariables[$scopeValue][$params['name']] = $value;
-                            }
-                        } else {
-                            $this->scopedVariables[$scope][$params['name']] = $value;
-                        }
-                    } else {
-                        $this->variables[$params['name']] = $value;
-                    }
-                    // EE Core didn't want to break here, not sure why.
-                    break;
-                default:
-                    break;
+            if (is_callable([$this, $methodName])) {
+                $this->$methodName($params['name'], $value, $scope);
             }
 
             $pos = $next;
@@ -180,6 +145,60 @@ class Parser
         }
 
         return $this;
+    }
+
+    /**
+     * @param string $paramName
+     * @param string $value
+     * @param string $scope
+     */
+    private function commandAppend(string $paramName, string $value, string $scope = '')
+    {
+        if ($scope) {
+            $this->scopedVariables[$scope][$paramName][] = $value;
+        } else {
+            $this->variables[$paramName][] = $value;
+        }
+    }
+
+    /**
+     * @param string $paramName
+     * @param string $value
+     * @param string $scope
+     */
+    private function commandPrepend(string $paramName, string $value, string $scope = '')
+    {
+        if (!isset($this->variables[$paramName])) {
+            $this->variables[$paramName] = [];
+        }
+
+        if ($scope) {
+            array_unshift($this->scopedVariables[$scope][$paramName], $value);
+        } else {
+            array_unshift($this->variables[$paramName], $value);
+        }
+    }
+
+    /**
+     * @param string $paramName
+     * @param string $value
+     * @param string $scope
+     */
+    private function commandSet(string $paramName, string $value, string $scope = '')
+    {
+        if ($scope) {
+            // Are we scoping to more than 1 thing at a time?
+            if (strpos($scope,'|')) {
+                $collection = explode('|', $scope);
+                foreach ($collection as $scopeValue) {
+                    $this->scopedVariables[$scopeValue][$paramName] = $value;
+                }
+            } else {
+                $this->scopedVariables[$scope][$paramName] = $value;
+            }
+        } else {
+            $this->variables[$paramName] = $value;
+        }
     }
 
     /**
