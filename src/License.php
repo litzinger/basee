@@ -135,15 +135,15 @@ class License
         $scripts = [];
 
         if ($status === 'invalid') {
-            $scripts[] = self::getInvalidNotice($this->addonShortName, $this->addonName, $this->licenseAccountUrl);
+            $scripts[] = self::getInvalidNotice($this->addonShortName, $this->addonName, $this->licenseAccountUrl, $status);
         }
 
         if ($status === 'update_available') {
-            $scripts[] = self::getUpdateAvailableNotice($this->addonShortName, $this->licenseAccountUrl);
+            $scripts[] = self::getUpdateAvailableNotice($this->addonShortName, $this->licenseAccountUrl, $status);
         }
 
         if ($status === 'expired') {
-            $scripts[] = self::getExpiredNotice($this->addonShortName, $this->licenseAccountUrl);
+            $scripts[] = self::getExpiredNotice($this->addonShortName, $this->licenseAccountUrl, $status);
         }
 
         if (isset(ee()->cp)) {
@@ -159,22 +159,24 @@ class License
      * @param string $addonShortName
      * @param string $addonName
      * @param string $licenseAccountUrl
+     * @param string $status
      * @return string
      */
-    public static function getInvalidNotice(string $addonShortName, string $addonName, string $licenseAccountUrl)
+    public static function getInvalidNotice(string $addonShortName, string $addonName, string $licenseAccountUrl, string $status = '')
     {
-        return '$(\'div[data-addon="'. $addonShortName .'"]\').append(\''. self::getRibbon('Unlicensed', 'red') .'\');
+        return '$(\'div[data-addon="'. $addonShortName .'"]\').append(\''. self::getRibbon('Unlicensed', $status) .'\');
                 $(\'.global-alerts\').append(\'<div class="app-notice-license app-notice app-notice--banner app-notice---error" style="display: flex;"><div class="app-notice__tag"><span class="app-notice__icon"></span></div><div class="app-notice__content"><p>Unlicensed Add-on: <b>'. $addonName .'</b> does not have a valid license. <a href="'. $licenseAccountUrl .'" target="_blank">More Info</a></p></div><a href="#" class="app-notice__controls js-notice-dismiss"><span class="app-notice__dismiss"></span><span class="hidden">close</span></a></div>\');';
     }
 
     /**
      * @param string $addonShortName
      * @param string $licenseAccountUrl
+     * @param string $status
      * @return string
      */
-    public static function getUpdateAvailableNotice(string $addonShortName, string $licenseAccountUrl)
+    public static function getUpdateAvailableNotice(string $addonShortName, string $licenseAccountUrl, string $status = '')
     {
-        return '$(\'div[data-addon="'. $addonShortName .'"]\').append(\''. self::getRibbon('Update Available', 'blue') .'\');
+        return '$(\'div[data-addon="'. $addonShortName .'"]\').append(\''. self::getRibbon('Update Available', $status) .'\');
                 if (window.location.href.indexOf(\''. $addonShortName .'\') !== -1) {
                     $(\'body.add-on-layout .main-nav__title\').css(\'position\', \'relative\').append(\'<a style="display:inline-block;vertical-align:middle;margin-left:15px;border: 2px solid #39d;background-color:#fff;font-weight:bold;color: #39d;padding: 2px 10px 1px 10px;border-radius: 5px;font-size: 12px;vertical-align: middle;" href="'. $licenseAccountUrl .'" target="_blank">Update Available</a>\').children(\'h1\').css({ \'display\': \'inline-block\', \'vertical-align\': \'middle\' });
                 };';
@@ -183,11 +185,12 @@ class License
     /**
      * @param string $addonShortName
      * @param string $licenseAccountUrl
+     * @param string $status
      * @return string
      */
-    public static function getExpiredNotice(string $addonShortName, string $licenseAccountUrl)
+    public static function getExpiredNotice(string $addonShortName, string $licenseAccountUrl, string $status = '')
     {
-        return '$(\'div[data-addon="'. $addonShortName .'"]\').append(\''. self::getRibbon('Expired', 'orange') .'\');
+        return '$(\'div[data-addon="'. $addonShortName .'"]\').append(\''. self::getRibbon('Expired', $status) .'\');
                 if (window.location.href.indexOf(\''. $addonShortName .'\') !== -1) {
                     $(\'body.add-on-layout .main-nav__title\').css(\'position\', \'relative\').append(\'<a style="display:inline-block;vertical-align:middle;margin-left:15px;background-color:#e82;font-weight:bold;color: #fff;padding: 2px 10px 1px 10px;border-radius: 5px;font-size: 12px;vertical-align: middle;" href="'. $licenseAccountUrl .'" target="_blank">License Expired</a>\').children(\'h1\').css({ \'display\':\'inline-block\', \'vertical-align\':\'middle\' });
                 }';
@@ -195,11 +198,11 @@ class License
 
     /**
      * @param string $message
-     * @param string $color
+     * @param string $status
      * @return string
      */
-    public static function getRibbon(string $message, string $color)
+    public static function getRibbon(string $message, string $status)
     {
-        return '<div style="position: absolute; overflow: hidden; top: 0; left: 0; width: 100px; height: 100%;"><div class="corner-ribbon top-left '. $color .' shadow">'. $message .'</div></div>';
+        return '<div class="corner-ribbon-wrap"><div class="corner-ribbon top-left '. $status .' shadow">'. $message .'</div></div>';
     }
 }

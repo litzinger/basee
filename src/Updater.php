@@ -25,14 +25,12 @@ class Updater
     /**
      * @var array
      */
-    private $hookTemplate = array();
+    private $hookTemplate = [];
 
     /**
      * @var array
      */
-    private $updateFiles = array();
-
-    public function __construct() {}
+    private $updateFiles = [];
 
     /**
      * Check to see if the installed version is less than what is reported by the add-on package.
@@ -46,6 +44,11 @@ class Updater
      */
     public function shouldUpdate(string $addonName = '', bool $redirect = false): bool
     {
+        // If any add-on is in the middle of an update routine, don't trigger an update and possibly a redirect
+        if (App::isUpdatingAddon()) {
+            return false;
+        }
+
         $addon = ee('App')->get($addonName);
         $installed = ee()->addons->get_installed('modules');
 

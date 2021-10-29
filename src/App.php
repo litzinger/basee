@@ -318,6 +318,22 @@ class App
      * @param string $addonName
      * @return bool
      */
+    public static function isUpdatingAddon(string $addonName = ''): bool
+    {
+        $path = implode('/', ee()->uri->segments);
+
+        // Updating any add-on?
+        if (!$addonName) {
+            return boolval(preg_match('#cp\/(addons\/update)/#', $path, $matches));
+        }
+
+        return boolval(preg_match('#cp\/(addons\/update)\/'. $addonName .'#', $path, $matches));
+    }
+
+    /**
+     * @param string $addonName
+     * @return bool
+     */
     public static function isUninstallingAddon(string $addonName): bool
     {
         $path = implode('/', ee()->uri->segments);
