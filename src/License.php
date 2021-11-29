@@ -12,6 +12,8 @@ class License
         'expired',
     ];
 
+    const BANNER_MESSAGE = 'Your license is available at <a href="%s">boldminded.com</a>, or <a href="https://expressionengine.com">expressionengine.com</a>. If you purchased from expressionengine.com, be sure to visit <a href="https://boldminded.com/claim">boldminded.com/claim</a> to add the license to your account.';
+
     /**
      * @var string
      */
@@ -165,7 +167,7 @@ class License
     public static function getInvalidNotice(string $addonShortName, string $addonName, string $licenseAccountUrl, string $status = '')
     {
         return '$(\'div[data-addon="'. $addonShortName .'"]\').append(\''. self::getRibbon('Unlicensed', $status) .'\');
-                $(\'.global-alerts\').append(\'<div class="app-notice-license app-notice app-notice--banner app-notice---error" style="display: flex;"><div class="app-notice__tag"><span class="app-notice__icon"></span></div><div class="app-notice__content"><p>Unlicensed Add-on: <b>'. $addonName .'</b> does not have a valid license. <a href="'. $licenseAccountUrl .'" target="_blank">More Info</a></p></div><a href="#" class="app-notice__controls js-notice-dismiss"><span class="app-notice__dismiss"></span><span class="hidden">close</span></a></div>\');';
+                $(\'.global-alerts\').append(\'<div class="app-notice-license app-notice app-notice--banner app-notice---error" style="display: flex;"><div class="app-notice__tag"><span class="app-notice__icon"></span></div><div class="app-notice__content"><p>Unlicensed Add-on: <b>'. $addonName .'</b> does not have a valid license.</p><p>'. sprintf(self::BANNER_MESSAGE, $licenseAccountUrl) .'</p></p></div><a href="#" class="app-notice__controls js-notice-dismiss"><span class="app-notice__dismiss"></span><span class="hidden">close</span></a></div>\');';
     }
 
     /**
