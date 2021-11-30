@@ -167,6 +167,10 @@ class App
             'jumpMenu' => '6.0',
         ];
 
+        if ($featureName === 'pro') {
+            return defined('IS_PRO') && IS_PRO;
+        }
+
         if (array_key_exists($featureName, $features)) {
             return version_compare(APP_VER, $features[$featureName], '>=');
         }
