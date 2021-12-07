@@ -99,6 +99,15 @@ class License
                 'payload' => base64_encode(json_encode($this->payload))
             ]);
 
+            // In the event it throws an exception, just consider it a valid license,
+            // otherwise a customer's site may not work and we don't want to deal with the support.
+            // Use case for this is when the SSL cert randomly expired on license.boldminded.com
+            if (isset($response['exception'])) {
+                $response = [
+                    'status' => 'valid',
+                ];
+            }
+
             if (self::DEBUG) {
                 $response['status'] = 'invalid';
             }
