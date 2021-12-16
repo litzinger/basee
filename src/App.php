@@ -366,4 +366,35 @@ class App
     {
         return (AJAX_REQUEST || self::isInstallingAddon($addonName) || self::isUninstallingAddon($addonName));
     }
+
+    /**
+     * @return bool
+     */
+    public function isBulkEditRequest(): bool
+    {
+        $uriString = ee()->uri->uri_string;
+
+        // Traditional Bulk Edit
+        return $uriString === 'cp/publish/bulk-edit' && !empty(ee()->input->get('entry_ids'));
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSequentialEditRequest(): bool
+    {
+        return !empty(ee()->input->get('entry_ids')) && ee()->input->get('modal_form') === 'y';
+    }
+
+    /**
+     * @return bool
+     */
+    public function isFrontEditRequest(): bool
+    {
+        if (ee()->input->get('is_frontedit') === 'y') {
+            return true;
+        }
+
+        return !empty(ee()->input->get('entry_ids')) && ee()->input->get('modal_form') === 'y' && ee()->input->get('field_id') !== '';
+    }
 }
