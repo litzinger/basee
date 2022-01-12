@@ -109,6 +109,22 @@ class App
     }
 
     /**
+     * @return int
+     */
+    public static function phpMajorVersion(): int
+    {
+        return (int) explode('.', PHP_VERSION)[0];
+    }
+
+    /**
+     * @return float
+     */
+    public static function phpVersion(): float
+    {
+        return PHP_VERSION;
+    }
+
+    /**
      * EE4 ditched the .box class which wraps most form views.
      *
      * @return string
@@ -396,5 +412,25 @@ class App
         }
 
         return !empty(ee()->input->get('entry_ids')) && ee()->input->get('modal_form') === 'y' && ee()->input->get('field_id') !== '';
+    }
+
+    /**
+     * @param int $depth
+     * @return string|null
+     */
+    public static function getCallingClass(int $depth = 1):? string
+    {
+        $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS,3);
+        return $backtrace[$depth]['class'] ?? null;
+    }
+
+    /**
+     * @param int $depth
+     * @return string|null
+     */
+    public static function getCallingFunction(int $depth = 1):? string
+    {
+        $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS,3);
+        return $backtrace[$depth]['function'] ?? null;
     }
 }
