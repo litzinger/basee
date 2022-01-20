@@ -420,7 +420,7 @@ class App
      */
     public static function getCallingClass(int $depth = 1):? string
     {
-        $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS,3);
+        $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS,5);
         return $backtrace[$depth]['class'] ?? null;
     }
 
@@ -430,7 +430,7 @@ class App
      */
     public static function getCallingFunction(int $depth = 1):? string
     {
-        $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS,3);
+        $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS,5);
         return $backtrace[$depth]['function'] ?? null;
     }
 }

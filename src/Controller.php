@@ -344,7 +344,7 @@ abstract class Controller
                     ->makeInline('shared-form')
                     ->asSuccess()
                     ->withTitle($callbackResponse->getSaveSuccessTitle())
-                    ->addToBody(vsprintf($callbackResponse->getSaveSuccessBody(), $callbackResponse->getMessageParameters()))
+                    ->addToBody(vsprintf($callbackResponse->getSaveSuccessBody(), $callbackResponse->getMessageParameters() ?? []))
                     ->defer();
 
                 // If the callback returns an integer we're assuming its the ID of the entity just saved.
