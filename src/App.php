@@ -181,6 +181,7 @@ class App
             'fileGrid' => '5.1',
             'entryEditList' => '6.0', // Improved entry edit list screen
             'jumpMenu' => '6.0',
+            'cloning' => '6.2.5',
         ];
 
         if ($featureName === 'pro') {
