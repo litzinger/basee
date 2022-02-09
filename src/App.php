@@ -386,7 +386,7 @@ class App
     /**
      * @return bool
      */
-    public function isBulkEditRequest(): bool
+    public static function isBulkEditRequest(): bool
     {
         $uriString = ee()->uri->uri_string;
 
@@ -397,7 +397,7 @@ class App
     /**
      * @return bool
      */
-    public function isSequentialEditRequest(): bool
+    public static function isSequentialEditRequest(): bool
     {
         return !empty(ee()->input->get('entry_ids')) && ee()->input->get('modal_form') === 'y';
     }
@@ -405,13 +405,21 @@ class App
     /**
      * @return bool
      */
-    public function isFrontEditRequest(): bool
+    public static function isFrontEditRequest(): bool
     {
         if (ee()->input->get('is_frontedit') === 'y') {
             return true;
         }
 
         return !empty(ee()->input->get('entry_ids')) && ee()->input->get('modal_form') === 'y' && ee()->input->get('field_id') !== '';
+    }
+
+    /**
+     * @return bool
+     */
+    public static function isCloningRequest(): bool
+    {
+        return defined('CLONING_MODE') && CLONING_MODE === true;
     }
 
     /**
