@@ -426,7 +426,7 @@ class App
     /**
      * @return bool
      */
-    public static function isRevision(): bool
+    public static function isRevisionRequest(): bool
     {
         return ee()->input->post('version_number') && ee()->input->post('versioning_enabled') === 'y';
     }
