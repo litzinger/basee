@@ -52,7 +52,9 @@ class Updater
         $addon = ee('App')->get($addonName);
         $installed = ee()->addons->get_installed('modules');
 
-        if (isset($installed[$addonName]['module_version']) &&
+        if (
+            isset($installed[$addonName]['module_version']) &&
+            $installed[$addonName]['module_version'] !== '@VERSION@' &&
             version_compare($installed[$addonName]['module_version'], $addon->getVersion(), '<')
         ) {
             if ($redirect) {
