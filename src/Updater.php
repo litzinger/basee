@@ -55,7 +55,9 @@ class Updater
         if (isset($installed[$addonName]['module_version']) &&
             version_compare($installed[$addonName]['module_version'], $addon->getVersion(), '<')
         ) {
-            if ($redirect) {
+            $routerClass = ee()->router->class ?? null;
+
+            if ($redirect && $routerClass !== 'addons') {
                 ee()->functions->redirect(ee('CP/URL')->make('addons'));
             }
 
