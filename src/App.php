@@ -428,7 +428,13 @@ class App
      */
     public static function isRevisionRequest(): bool
     {
-        return ee()->input->post('version_number');
+        // Native EE way of checking if user is saving a Revision
+        if (ee()->input->get('version') && !empty($_POST)) {
+            return true;
+        }
+
+        // Hidden field specific to Bloqs, but is basically deprecated due to above
+        return boolval(ee()->input->post('version_number'));
     }
 
     /**
