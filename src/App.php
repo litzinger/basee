@@ -101,6 +101,54 @@ class App
     }
 
     /**
+     * @return boolean
+     */
+    public static function isEE7(): bool
+    {
+        return self::majorVersion() === 7;
+    }
+
+    /**
+     * @return boolean
+     */
+    public static function isGteEE7(): bool
+    {
+        return self::majorVersion() >= 7;
+    }
+
+    /**
+     * @return boolean
+     */
+    public static function isLtEE7(): bool
+    {
+        return self::majorVersion() < 7;
+    }
+
+    /**
+     * @return boolean
+     */
+    public static function isEE8(): bool
+    {
+        return self::majorVersion() === 8;
+    }
+
+    /**
+     * @return boolean
+     */
+    public static function isGteEE8(): bool
+    {
+        return self::majorVersion() >= 8;
+    }
+
+    /**
+     * @return boolean
+     */
+    public static function isLtEE8(): bool
+    {
+        return self::majorVersion() < 8;
+    }
+
+    /**
      * @return int
      */
     public static function majorVersion(): int
