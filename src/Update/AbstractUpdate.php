@@ -6,7 +6,7 @@ namespace Basee\Update;
  * @package     ExpressionEngine
  * @category    Basee
  * @author      Brian Litzinger
- * @copyright   Copyright (c) 2016 - Brian Litzinger
+ * @copyright   Copyright (c) 2022 - Brian Litzinger
  * @link        https://github.com/litzinger/basee
  * @license     MIT
  */

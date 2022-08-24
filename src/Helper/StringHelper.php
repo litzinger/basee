@@ -8,7 +8,7 @@ if ( !defined('BASEPATH')) exit('No direct script access allowed');
  * @package     ExpressionEngine
  * @category    Basee
  * @author      Brian Litzinger
- * @copyright   Copyright (c) 2019 - BoldMinded, LLC
+ * @copyright   Copyright (c) 2022 - BoldMinded, LLC
  * @link        https://github.com/litzinger/basee
  * @license     MIT
  */
