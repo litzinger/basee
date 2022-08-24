@@ -1,6 +1,6 @@
 <?php
 
-namespace Trial;
+namespace Basee;
 
 /**
  * @package     ExpressionEngine
