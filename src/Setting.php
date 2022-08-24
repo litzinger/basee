@@ -256,10 +256,10 @@ class Setting
      * @param string key
      * @return void
      */
-    private function filterSettings(&$value, $key)
+    private function filterSettings(&$value)
     {
         if (in_array($value, ['yes', 'no', 'y', 'n'])) {
-            $value = ($value === 'yes' || $value === 'y') ? true : false;
+            $value = $value === 'yes' || $value === 'y';
         }
     }
 
