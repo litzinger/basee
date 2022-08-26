@@ -46,7 +46,7 @@ class License
     /**
      * @var string
      */
-    private $licenseAccountUrl = 'https://boldminded.com/account/licenses';
+    public static $licenseAccountUrl = 'https://boldminded.com/account/licenses';
 
     /**
      * @param string $licenseCheckUrl
@@ -65,7 +65,7 @@ class License
         }
 
         if ($licenseAccountUrl) {
-            $this->licenseAccountUrl = $licenseAccountUrl;
+            self::$licenseAccountUrl = $licenseAccountUrl;
         }
     }
 
@@ -155,15 +155,15 @@ class License
         $scripts = [];
 
         if ($status === 'invalid') {
-            $scripts[] = self::getInvalidNotice($this->addonShortName, $this->addonName, $this->licenseAccountUrl, $status);
+            $scripts[] = self::getInvalidNotice($this->addonShortName, $this->addonName, self::$licenseAccountUrl, $status);
         }
 
         if ($status === 'update_available') {
-            $scripts[] = self::getUpdateAvailableNotice($this->addonShortName, $this->licenseAccountUrl, $status);
+            $scripts[] = self::getUpdateAvailableNotice($this->addonShortName, self::$licenseAccountUrl, $status);
         }
 
         if ($status === 'expired') {
-            $scripts[] = self::getExpiredNotice($this->addonShortName, $this->licenseAccountUrl, $status);
+            $scripts[] = self::getExpiredNotice($this->addonShortName, self::$licenseAccountUrl, $status);
         }
 
         if (isset(ee()->cp)) {
