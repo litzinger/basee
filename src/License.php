@@ -190,6 +190,19 @@ class License
 
     /**
      * @param string $addonShortName
+     * @param string $addonName
+     * @param string $licenseAccountUrl
+     * @param string $status
+     * @return string
+     */
+    public static function getExpiredTrialNotice(string $addonShortName, string $addonName, string $licenseAccountUrl, string $status = 'expired')
+    {
+        return '$(\'div[data-addon="'. $addonShortName .'"]\').append(\''. self::getRibbon('Unlicensed', $status) .'\');
+                $(\'.global-alerts\').append(\'<div class="app-notice-license app-notice app-notice--banner app-notice---error" style="display: flex;"><div class="app-notice__tag"><span class="app-notice__icon"></span></div><div class="app-notice__content"><p>Unlicensed Add-on: <b>'. $addonName .'</b> trial has expired. You will need to purchase a full license to continue using '. $addonName .'</p><p>'. sprintf(self::BANNER_MESSAGE, $licenseAccountUrl) .'</p></p></div><a href="#" class="app-notice__controls js-notice-dismiss"><span class="app-notice__dismiss"></span><span class="hidden">close</span></a></div>\');';
+    }
+
+    /**
+     * @param string $addonShortName
      * @param string $licenseAccountUrl
      * @param string $status
      * @return string
