@@ -396,7 +396,7 @@ class App
             return boolval(preg_match('#cp\/(addons\/update)/#', $path, $matches));
         }
 
-        return boolval(preg_match('#cp\/(addons\/update)/'. $addonName .'#', $path, $matches));
+        return boolval(preg_match('#cp\/(addons\/update)\/'. $addonName .'#', $path, $matches));
     }
 
     /**
