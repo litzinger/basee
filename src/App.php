@@ -380,7 +380,7 @@ class App
     {
         $path = implode('/', ee()->uri->segments);
 
-        return boolval(preg_match('#cp\/(addons\/install)\/'. $addonName .'#', $path, $matches));
+        return boolval(preg_match('#cp\/(addons\/install)\/' . $addonName .'#', $path, $matches));
     }
 
     /**
@@ -396,7 +396,7 @@ class App
             return boolval(preg_match('#cp\/(addons\/update)/#', $path, $matches));
         }
 
-        return boolval(preg_match('#cp\/(addons\/update)\/'. $addonName .'#', $path, $matches));
+        return boolval(preg_match('#cp\/(addons\/update)/'. $addonName .'#', $path, $matches));
     }
 
     /**
@@ -408,7 +408,7 @@ class App
         $path = implode('/', ee()->uri->segments);
 
         // EE6+
-        if (preg_match('#cp\/(addons\/remove)\/'. $addonName .'#', $path, $matches)) {
+        if (preg_match('#cp\/(addons\/remove)\/' . $addonName .'#', $path, $matches)) {
             return true;
         }
 
@@ -483,6 +483,26 @@ class App
 
         // Hidden field specific to Bloqs, but is basically deprecated due to above
         return boolval(ee()->input->post('version_number'));
+    }
+
+    /**
+     * @return bool
+     */
+    public static function isEntryPublishRequest(): bool
+    {
+        return preg_match('/cp\/publish\/edit\/entry/', ee()->uri->uri_string);
+    }
+
+    /**
+     * @return int
+     */
+    public static function getEntryIdFromRequest(): int
+    {
+        if (preg_match('/cp\/publish\/edit\/entry/', ee()->uri->uri_string) && ee()->uri->segment(5)) {
+            return (int) ee()->uri->segment(5);
+        }
+
+        return 0;
     }
 
     /**
