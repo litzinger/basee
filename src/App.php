@@ -474,7 +474,7 @@ class App
     /**
      * @return bool
      */
-    public static function isRevisionRequest(): bool
+    public static function isRevisionSaveRequest(): bool
     {
         // Native EE way of checking if user is saving a Revision
         if (ee()->input->get('version') && !empty($_POST)) {
@@ -483,6 +483,14 @@ class App
 
         // Hidden field specific to Bloqs, but is basically deprecated due to above
         return boolval(ee()->input->post('version_number'));
+    }
+
+    /**
+     * @return bool
+     */
+    public static function isRevisionViewRequest(): bool
+    {
+        return ee()->input->get('version');
     }
 
     /**
