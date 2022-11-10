@@ -314,6 +314,35 @@ class App
     }
 
     /**
+     * @param string $tagdata
+     * @param string $var
+     * @param string $prefix
+     * @return array
+     */
+    public static function parseTagPair(string $tagdata, string $var, string $prefix = ''): array
+    {
+        if (!isset(ee()->api_channel_fields)) {
+            ee()->load->library('api');
+            ee()->legacy_api->instantiate('channel_fields');
+        }
+
+        $pairs = ee()->api_channel_fields->get_pair_field($tagdata, $var, $prefix);
+
+        $found = [];
+
+        foreach ($pairs as $pair) {
+            $found[] = [
+                'modifier' => $pair[0],
+                'content' => $pair[1],
+                'params' => $pair[2],
+                'chunk' => $pair[3],
+            ];
+        }
+
+        return $found;
+    }
+
+    /**
      * @param string    $name
      * @param int|null  $siteId
      * @return mixed|string
