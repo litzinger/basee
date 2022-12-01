@@ -343,6 +343,21 @@ class App
     }
 
     /**
+     * set_data() is only available in EE 7.2.1+ for Coilpack support.
+     * Variables passed to setTemplateData() will be available in
+     * Twig or Blade based templates.
+     *
+     * @param array $data
+     * @return void
+     */
+    public static function setTemplateData(array $data = [])
+    {
+        if(method_exists(ee()->TMPL, 'set_data')) {
+            ee()->TMPL->set_data($data);
+        }
+    }
+
+    /**
      * @param string    $name
      * @param int|null  $siteId
      * @return mixed|string
