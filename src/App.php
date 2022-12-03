@@ -454,8 +454,8 @@ class App
         $path = implode('/', ee()->uri->segments);
 
         // EE6+
-        if (preg_match('#cp\/(addons\/remove)\/' . $addonName .'#', $path, $matches)) {
-            return true;
+        if (self::isGteEE6()) {
+            return preg_match('#cp\/(addons\/remove)\/' . $addonName .'#', $path, $matches);
         }
 
         // Legacy
