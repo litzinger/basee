@@ -2,8 +2,6 @@
 
 namespace Litzinger\Basee;
 
-use Cache;
-
 /**
  * @package     ExpressionEngine
  * @category    Basee

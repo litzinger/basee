@@ -1,8 +1,6 @@
 <?php
 
-namespace Basee\Helper;
-
-if ( !defined('BASEPATH')) exit('No direct script access allowed');
+namespace Litzinger\Basee\Helper;
 
 /**
  * @package     ExpressionEngine

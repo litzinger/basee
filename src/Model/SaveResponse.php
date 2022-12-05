@@ -1,6 +1,6 @@
 <?php
 
-namespace Basee\Model;
+namespace Litzinger\Basee\Model;
 
 if ( !defined('BASEPATH')) exit('No direct script access allowed');
 

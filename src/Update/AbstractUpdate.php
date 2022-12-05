@@ -1,6 +1,6 @@
 <?php
 
-namespace Basee\Update;
+namespace Litzinger\Basee\Update;
 
 /**
  * @package     ExpressionEngine

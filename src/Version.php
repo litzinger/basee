@@ -1,6 +1,6 @@
 <?php
 
-namespace BoldMinded\Publisher\Library\Basee;
+namespace Litzinger\Basee;
 
 /**
  * @package     ExpressionEngine
