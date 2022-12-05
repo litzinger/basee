@@ -13,7 +13,7 @@
         "php": ">=5.3.9"
     },
     "autoload": {
-        "psr-4": {"Basee\\": "src/"}
+        "psr-4": {"Litzinger\\Basee\\": "src/"}
     },
     "minimum-stability": "dev"
 }
