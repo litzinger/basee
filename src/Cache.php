@@ -14,6 +14,15 @@ namespace Litzinger\Basee;
 class Cache implements CacheInterface
 {
     /**
+     * These constants specify the scope in which the cache item should
+     * exist; either it should exist in and be accessible only by the
+     * current site, or it should be globally accessible by the EE
+     * installation across MSM sites
+     */
+    const GLOBAL_SCOPE = 1;	// Scoped to the current site
+    const LOCAL_SCOPE = 2;	// Scoped to global EE install
+
+    /**
      * @var object
      */
     private $driver;
