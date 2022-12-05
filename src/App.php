@@ -1,6 +1,6 @@
 <?php
 
-namespace Basee;
+namespace Litzinger\Basee;
 
 /**
  * Utility functions to assist in making add-ons work in EE3, EE4, and EE5

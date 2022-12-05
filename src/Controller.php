@@ -1,6 +1,6 @@
 <?php
 
-namespace Basee;
+namespace Litzinger\Basee;
 
 /**
  * @package     ExpressionEngine
@@ -11,8 +11,8 @@ namespace Basee;
  * @license     MIT
  */
 
-use Basee\Helper\StringHelper;
-use Basee\Model\SaveResponse;
+use Litzinger\Basee\Helper\StringHelper;
+use Litzinger\Basee\Model\SaveResponse;
 use Closure;
 use EllisLab\ExpressionEngine\Service\Sidebar\FolderItem;
 use EllisLab\ExpressionEngine\Service\Sidebar\FolderList;

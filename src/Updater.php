@@ -1,8 +1,8 @@
 <?php
 
-namespace Basee;
+namespace Litzinger\Basee;
 
-use Basee\Update\AbstractUpdate;
+use Litzinger\Basee\Update\AbstractUpdate;
 use FilesystemIterator;
 use RecursiveDirectoryIterator;
 
