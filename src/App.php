@@ -357,7 +357,9 @@ class App
     }
 
     /**
-     * If Coilpack is installed, provide non-prefixed version that is available at {{ global.$key }}
+     * If Coilpack is installed, provide non-prefixed version that is available at {{ global.$key }},
+     * otherwise it is only available at {{ global.global.$key }} since Coilpack automagically turns
+     * global vars with : acting as a namespace/prefix into nested arrays.
      *
      * @param array $data
      * @return void
