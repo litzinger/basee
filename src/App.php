@@ -344,16 +344,34 @@ class App
 
     /**
      * set_data() is only available in EE 7.2.1+ for Coilpack support.
-     * Variables passed to setTemplateData() will be available in
-     * Twig or Blade based templates.
+     * Variables passed to setTemplateData() will be available in Twig or Blade based templates.
      *
      * @param array $data
      * @return void
      */
     public static function setTemplateData(array $data = [])
     {
-        if(method_exists(ee()->TMPL, 'set_data')) {
+        if (method_exists(ee()->TMPL, 'set_data')) {
             ee()->TMPL->set_data($data);
+        }
+    }
+
+    /**
+     * If Coilpack is installed, provide non-prefixed version that is available at {{ global.$key }}
+     *
+     * @param array $data
+     * @return void
+     */
+    public static function setGlobalData(array $data = [])
+    {
+        foreach ($data as $key => $value) {
+            $key = str_replace('global:', '', $key);
+
+            if (method_exists(ee()->TMPL, 'set_data')) {
+                ee()->config->_global_vars[$key] = $value;
+            }
+
+            ee()->config->_global_vars['global:' . $key] = $value;
         }
     }
 
