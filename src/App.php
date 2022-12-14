@@ -369,7 +369,7 @@ class App
         foreach ($data as $key => $value) {
             $key = str_replace('global:', '', $key);
 
-            if (method_exists(ee()->TMPL, 'set_data')) {
+            if (isset(ee()->TMPL) && method_exists(ee()->TMPL, 'set_data')) {
                 ee()->config->_global_vars[$key] = $value;
             }
 
