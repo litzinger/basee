@@ -506,7 +506,7 @@ class App
         $uriString = ee()->uri->uri_string;
 
         // Traditional Bulk Edit
-        return $uriString === 'cp/publish/bulk-edit' && !empty(ee()->input->get('entry_ids'));
+        return $uriString === 'cp/publish/bulk-edit' && !empty(ee()->input->get_post('entry_ids'));
     }
 
     /**
@@ -514,7 +514,7 @@ class App
      */
     public static function isSequentialEditRequest(): bool
     {
-        return !empty(ee()->input->get('entry_ids')) && ee()->input->get('modal_form') === 'y';
+        return !empty(ee()->input->get_post('entry_ids')) && ee()->input->get('modal_form') === 'y';
     }
 
     /**
