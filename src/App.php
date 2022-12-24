@@ -503,10 +503,7 @@ class App
      */
     public static function isBulkEditRequest(): bool
     {
-        $uriString = ee()->uri->uri_string;
-
-        // Traditional Bulk Edit
-        return $uriString === 'cp/publish/bulk-edit' && !empty(ee()->input->get_post('entry_ids'));
+        return preg_match("/^cp\/publish\/bulk-edit/", ee()->uri->uri_string) && !empty(ee()->input->get_post('entry_ids'));
     }
 
     /**
