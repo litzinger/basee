@@ -511,7 +511,7 @@ class App
      */
     public static function isBulkEditCategoryRequest(): bool
     {
-        return preg_match("/^cp\/publish\/bulk-edit\/categories/", ee()->uri->uri_string) && !empty(ee()->input->get_post('entry_ids'));
+        return preg_match("/^cp\/publish\/bulk-edit\/categories\/save-/", ee()->uri->uri_string) && !empty(ee()->input->get_post('entry_ids'));
     }
 
     /**
