@@ -509,6 +509,14 @@ class App
     /**
      * @return bool
      */
+    public static function isBulkEditCategoryRequest(): bool
+    {
+        return preg_match("/^cp\/publish\/bulk-edit\/categories/", ee()->uri->uri_string) && !empty(ee()->input->get_post('entry_ids'));
+    }
+
+    /**
+     * @return bool
+     */
     public static function isSequentialEditRequest(): bool
     {
         return !empty(ee()->input->get_post('entry_ids')) && ee()->input->get('modal_form') === 'y';
