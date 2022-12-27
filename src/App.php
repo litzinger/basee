@@ -499,6 +499,8 @@ class App
     }
 
     /**
+     * Could be any bulk edit request on an entry or collection of entries.
+     *
      * @return bool
      */
     public static function isBulkEditRequest(): bool
@@ -507,6 +509,8 @@ class App
     }
 
     /**
+     * A bulk edit request to add or remove categories for an entry.
+     *
      * @return bool
      */
     public static function isBulkEditCategoryRequest(): bool
