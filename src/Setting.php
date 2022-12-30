@@ -148,10 +148,21 @@ class Setting
             return false;
         }
 
-        $siteId = $siteId ? $siteId : ee()->config->item('site_id');
+        $siteId = $siteId ?: ee()->config->item('site_id');
         $settings = $this->settings[$siteId];
 
-        return isset($settings[$key]) ? $settings[$key] : false;
+        return $settings[$key] ?? false;
+    }
+
+    /**
+     * @param $siteId
+     * @return array
+     */
+    public function getAll($siteId = null): array
+    {
+        $siteId = $siteId ?: ee()->config->item('site_id');
+
+        return $this->settings[$siteId] ?? [];
     }
 
     /**
@@ -247,6 +258,10 @@ class Setting
     }
 
     /**
+     * This should be called "getAllAvailableSettings" or "getAllSettingOptions" because
+     * it does not return the actual saved settings values, just the keys and default values.
+     * Use getAll() to get all active/saved settings.
+     *
      * @return array
      */
     public function getAllSettings()
