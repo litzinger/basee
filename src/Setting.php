@@ -53,7 +53,7 @@ class Setting
      * @param array $post
      * @return bool|array
      */
-    public function save(Array $post = [])
+    public function save(array $post = [])
     {
         $errors = [];
 
