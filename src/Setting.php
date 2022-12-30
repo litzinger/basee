@@ -143,6 +143,11 @@ class Setting
             $this->load();
         }
 
+        // Still empty? Probably an add-on upgrade that didn't use Basee for its original install.
+        if (empty($this->settings)) {
+            return false;
+        }
+
         $siteId = $siteId ? $siteId : ee()->config->item('site_id');
         $settings = $this->settings[$siteId];
 
@@ -160,6 +165,10 @@ class Setting
         $dbSettings = [];
         $globalSettings = [];
         $settingTypes = [];
+
+        if (!$db->table_exists($this->tableName)) {
+            return;
+        }
 
         /** @var \CI_DB_result $settingsQuery */
         $settingsQuery = $db->get($this->tableName);
