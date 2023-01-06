@@ -230,8 +230,8 @@ class App
             'entryEditList' => '6.0', // Improved entry edit list screen
             'jumpMenu' => '6.0',
             'cloning' => '6.2.5',
+            'revisionAlert' => '6.4',
             'newFileManager' => '7.1',
-            'revisionAlert' => '7.2',
         ];
 
         if ($featureName === 'pro') {
