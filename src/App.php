@@ -246,6 +246,17 @@ class App
     }
 
     /**
+     * @param string $addonName
+     * @return bool
+     */
+    public static function isAddonInstalled(string $addonName): bool
+    {
+        $addon = ee('Addon')->get($addonName);
+
+        return $addon && $addon->isInstalled();
+    }
+
+    /**
      * @param string $fieldName
      * @return string
      */
@@ -588,25 +599,5 @@ class App
         }
 
         return 0;
-    }
-
-    /**
-     * @param int $depth
-     * @return string|null
-     */
-    public static function getCallingClass(int $depth = 1):? string
-    {
-        $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS,5);
-        return $backtrace[$depth]['class'] ?? null;
-    }
-
-    /**
-     * @param int $depth
-     * @return string|null
-     */
-    public static function getCallingFunction(int $depth = 1):? string
-    {
-        $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS,5);
-        return $backtrace[$depth]['function'] ?? null;
     }
 }
