@@ -362,7 +362,7 @@ class App
      */
     public static function setTemplateData(array $data = [])
     {
-        if (method_exists(ee()->TMPL, 'set_data')) {
+        if (isset(ee()->TMPL) && method_exists(ee()->TMPL, 'set_data')) {
             ee()->TMPL->set_data($data);
         }
     }
