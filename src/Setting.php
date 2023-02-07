@@ -75,7 +75,7 @@ class Setting
             if (is_array($value)) {
                 $value = json_encode($value);
                 $data['type'] = 'json';
-            } else if (in_array($value, ['yes', 'no', 'y', 'n'])) {
+            } elseif (in_array($value, ['yes', 'no', 'y', 'n'])) {
                 $value = ($value == 'yes' || $value == 'y') ? 'yes' : 'no';
                 $data['type'] = 'boolean';
             } else {
@@ -118,15 +118,15 @@ class Setting
     }
 
     /**
-     * @param $key
-     * @param $value
-     * @param int $site_id
+     * @param string    $key
+     * @param mixed     $value
+     * @param int       $siteId
      * @return $this
      */
-    public function set($key, $value, $site_id = 1)
+    public function set(string $key, $value, int $siteId = 1)
     {
         if ($key && $value) {
-            $this->settings[$site_id][$key] = $value;
+            $this->settings[$siteId][$key] = $value;
         }
 
         return $this;
@@ -189,9 +189,12 @@ class Setting
             if ($row->type == 'json') {
                 $dbSettings[$row->site_id][$row->key] = json_decode($row->val, true);
                 // If somehow the setting was saved as [""] filter it out
-                $dbSettings[$row->site_id][$row->key] = array_filter($dbSettings[$row->site_id][$row->key], function($item) {
-                    return $item !== '';
-                });
+                $dbSettings[$row->site_id][$row->key] = array_filter(
+                    $dbSettings[$row->site_id][$row->key],
+                    function ($item) {
+                        return $item !== '';
+                    }
+                    );
             } else {
                 $dbSettings[$row->site_id][$row->key] = $row->val;
             }
