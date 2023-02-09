@@ -212,6 +212,18 @@ class App
     }
 
     /**
+     * @return array|string[]
+     */
+    public static function userRoleIds(): array
+    {
+        if (self::isLtEE6()) {
+            return [self::userData('role_id')];
+        }
+
+        return ee()->session->getMember()->getAllRoles()->pluck('role_id');
+    }
+
+    /**
      * Use a collection of native EE features and the version
      * in which they were released and possibly change functionality
      * of this add-on based on the current EE version.
