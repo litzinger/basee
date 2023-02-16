@@ -544,23 +544,44 @@ class App
     }
 
     /**
+     * @deprecated
+     *
      * @return bool
      */
     public static function isSequentialEditRequest(): bool
     {
-        return !empty(ee()->input->get_post('entry_ids')) && ee()->input->get('modal_form') === 'y';
+        return self::isModalEntryFormRequest();
     }
 
     /**
+     * Can be true if it's a Relationship slide out editing form, a sequential/multi edit form from the cp/publish/edit
+     * entries list, or a front-edit request when editing a single field on the front-end outside the CP.
+     *
+     * @return bool
+     */
+    public static function isModalEntryFormRequest(): bool
+    {
+        return !empty(ee()->input->get('entry_ids')) && ee()->input->get('modal_form') === 'y';
+    }
+
+    /**
+     * Specifically when editing on the front-end outside of the CP. After a specific field is updated it'll refresh
+     * the page to the return value. This is the only place the return param nad modal_form param exist together.
+     *
      * @return bool
      */
     public static function isFrontEditRequest(): bool
     {
+        // This is not a native EE query string param. Add-on deva can use this as a short cut.
         if (ee()->input->get('is_frontedit') === 'y') {
             return true;
         }
 
-        return !empty(ee()->input->get('entry_ids')) && ee()->input->get('modal_form') === 'y' && ee()->input->get('field_id') !== '';
+        return !empty(ee()->input->get('entry_ids')) &&
+            ee()->input->get('modal_form') === 'y' &&
+            ee()->input->get('field_id') &&
+            ee()->input->get('return')
+            ;
     }
 
     /**
