@@ -23,6 +23,11 @@ class Setting
     private $settings = [];
 
     /**
+     * @var string
+     */
+    private $tableName;
+
+    /**
      * Default settings that apply to each site. If an MSM install site_id will be N.
      *
      * @var array
