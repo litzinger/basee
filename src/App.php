@@ -619,7 +619,7 @@ class App
      */
     public static function isEntryPublishRequest(): bool
     {
-        return preg_match('/cp\/publish\/edit\/entry/', ee()->uri->uri_string);
+        return preg_match('/cp\/publish\/edit\/entry/', ee()->uri->uri_string) || preg_match('/cp\/publish\/create/', ee()->uri->uri_string);
     }
 
     /**
