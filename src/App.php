@@ -153,7 +153,17 @@ class App
      */
     public static function majorVersion(): int
     {
-        return (int) explode('.', APP_VER)[0];
+        $version = ee()->config->config['app_version'] ?? 0;
+
+        if (defined('APP_VER')) {
+            $version = APP_VER;
+        }
+
+        if (!$version) {
+            throw new \Exception('Unable to determine ExpressionEngine version.');
+        }
+
+        return (int) explode('.', $version)[0];
     }
 
     /**
