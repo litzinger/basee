@@ -19,6 +19,7 @@ class License
         'invalid',
         'update_available',
         'expired',
+        'expiring_soon',
     ];
 
     const BANNER_MESSAGE = 'Your license is available at <a href="%s">boldminded.com</a>, or <a href="https://expressionengine.com">expressionengine.com</a>. If you purchased from expressionengine.com, be sure to visit <a href="https://boldminded.com/claim">boldminded.com/claim</a> to add the license to your account.';
@@ -238,7 +239,7 @@ class License
     {
         return '$(\'div[data-addon="'. $addonShortName .'"]\').append(\''. self::getRibbon('Expiring Soon', $status) .'\');
                 if (window.location.href.indexOf(\''. $addonShortName .'\') !== -1) {
-                    $(\'body.add-on-layout .main-nav__title\').css(\'position\', \'relative\').append(\'<a style="display:inline-block;vertical-align:middle;margin-left:15px;background-color:#e82;font-weight:bold;color: #fff;padding: 2px 10px 1px 10px;border-radius: 5px;font-size: 12px;vertical-align: middle;" href="'. $licenseAccountUrl .'" target="_blank">License Expired</a>\').children(\'h1\').css({ \'display\':\'inline-block\', \'vertical-align\':\'middle\' });
+                    $(\'body.add-on-layout .main-nav__title\').css(\'position\', \'relative\').append(\'<a style="display:inline-block;vertical-align:middle;margin-left:15px;background-color:#e82;font-weight:bold;color: #fff;padding: 2px 10px 1px 10px;border-radius: 5px;font-size: 12px;vertical-align: middle;" href="'. $licenseAccountUrl .'" target="_blank">License Expiring Soon</a>\').children(\'h1\').css({ \'display\':\'inline-block\', \'vertical-align\':\'middle\' });
                 }';
     }
 
