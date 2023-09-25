@@ -147,11 +147,6 @@ class License
      */
     public function displayValidationMessage(string $status)
     {
-        // @todo get appropriate styles and markup for EE 5
-        if (App::isLtEE6()) {
-            return '';
-        }
-
         $scripts = [];
 
         if ($status === 'invalid') {
@@ -164,6 +159,10 @@ class License
 
         if ($status === 'expired') {
             $scripts[] = self::getExpiredNotice($this->addonShortName, self::$licenseAccountUrl, $status);
+        }
+
+        if ($status === 'expiring_soon') {
+            $scripts[] = self::getExpiringSoonNotice($this->addonShortName, self::$licenseAccountUrl, $status);
         }
 
         if (isset(ee()->cp)) {
@@ -224,6 +223,20 @@ class License
     public static function getExpiredNotice(string $addonShortName, string $licenseAccountUrl, string $status = '')
     {
         return '$(\'div[data-addon="'. $addonShortName .'"]\').append(\''. self::getRibbon('Expired', $status) .'\');
+                if (window.location.href.indexOf(\''. $addonShortName .'\') !== -1) {
+                    $(\'body.add-on-layout .main-nav__title\').css(\'position\', \'relative\').append(\'<a style="display:inline-block;vertical-align:middle;margin-left:15px;background-color:#e82;font-weight:bold;color: #fff;padding: 2px 10px 1px 10px;border-radius: 5px;font-size: 12px;vertical-align: middle;" href="'. $licenseAccountUrl .'" target="_blank">License Expired</a>\').children(\'h1\').css({ \'display\':\'inline-block\', \'vertical-align\':\'middle\' });
+                }';
+    }
+
+    /**
+     * @param string $addonShortName
+     * @param string $licenseAccountUrl
+     * @param string $status
+     * @return string
+     */
+    public static function getExpiringSoonNotice(string $addonShortName, string $licenseAccountUrl, string $status = '')
+    {
+        return '$(\'div[data-addon="'. $addonShortName .'"]\').append(\''. self::getRibbon('Expiring Soon', $status) .'\');
                 if (window.location.href.indexOf(\''. $addonShortName .'\') !== -1) {
                     $(\'body.add-on-layout .main-nav__title\').css(\'position\', \'relative\').append(\'<a style="display:inline-block;vertical-align:middle;margin-left:15px;background-color:#e82;font-weight:bold;color: #fff;padding: 2px 10px 1px 10px;border-radius: 5px;font-size: 12px;vertical-align: middle;" href="'. $licenseAccountUrl .'" target="_blank">License Expired</a>\').children(\'h1\').css({ \'display\':\'inline-block\', \'vertical-align\':\'middle\' });
                 }';
