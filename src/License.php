@@ -250,6 +250,7 @@ class License
      */
     public static function getRibbon(string $message, string $status)
     {
-        return '<div class="corner-ribbon-wrap"><div class="corner-ribbon top-left '. $status .' shadow">'. $message .'</div></div>';
+        $fontSize = strlen($status) > 7 ? ' style="font-size: 62%;"' : '';
+        return '<div class="corner-ribbon-wrap"><div class="corner-ribbon top-left '. $status .' shadow" ' . $fontSize . '>'. $message .'</div></div>';
     }
 }
