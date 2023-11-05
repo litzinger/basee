@@ -594,12 +594,34 @@ class App
             ;
     }
 
-    /**
-     * @return bool
-     */
     public static function isCloningRequest(): bool
     {
         return defined('CLONING_MODE') && CLONING_MODE === true;
+    }
+
+    public static function isActionRequest(): bool
+    {
+        return REQ === 'ACTION';
+    }
+
+    public static function isLivePreviewRequest(): bool
+    {
+        // EE6+ Live Preview request support
+        if (self::isGteEE6() && self::isActionRequest()) {
+            $action = ee('Model')->get('Action')
+                ->filter('class', 'Channel')
+                ->filter('method', 'live_preview')
+                ->first();
+
+            return $action->action_id && (int) ee()->input->get('ACT') === $action->action_id;
+        }
+
+        // Legacy/EE5 Live Preview request support
+        // Before we attempt to call the ee:LivePreview service lets make sure its available.
+        $isLivePreviewAvailable = self::isFeatureAvailable('livePreview');
+        $isLivePreviewRequestUri = preg_grep('/cp\/publish\/preview\/(\d+)/', array_keys($_REQUEST));
+
+        return $isLivePreviewAvailable && !empty($isLivePreviewRequestUri);
     }
 
     /**
