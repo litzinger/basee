@@ -260,6 +260,10 @@ class App
             return defined('IS_PRO') && IS_PRO;
         }
 
+        if ($featureName === 'msm') {
+            return bool_config_item('multiple_sites_enabled');
+        }
+
         if (array_key_exists($featureName, $features)) {
             return version_compare(APP_VER, $features[$featureName], '>=');
         }
