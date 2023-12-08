@@ -254,6 +254,8 @@ class App
             'cloning' => '6.2.5',
             'revisionAlert' => '6.4',
             'newFileManager' => '7.1',
+            'fieldNameHints' => '7.4',
+            'categoryPermissions' => '7.4',
         ];
 
         if ($featureName === 'pro') {
