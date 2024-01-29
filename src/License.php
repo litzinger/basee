@@ -207,7 +207,7 @@ class License
      * @param string $status
      * @return string
      */
-    public static function getUpdateAvailableNotice(string $addonShortName, string $licenseAccountUrl, string $status = '')
+    public static function getUpdateAvailableNotice(string $addonShortName, string $licenseAccountUrl, string $status = 'update_available')
     {
         return '$(\'div[data-addon="'. $addonShortName .'"]\').append(\''. self::getRibbon('Update Available', $status) .'\');
                 if (window.location.href.indexOf(\''. $addonShortName .'\') !== -1) {
@@ -250,7 +250,7 @@ class License
      */
     public static function getRibbon(string $message, string $status)
     {
-        $fontSize = strlen($status) > 7 ? ' style="font-size: 62%;"' : '';
+        $fontSize = strlen($status) > 7 ? ' style="font-size: 45%;"' : '';
         return '<div class="corner-ribbon-wrap"><div class="corner-ribbon top-left '. $status .' shadow" ' . $fontSize . '>'. $message .'</div></div>';
     }
 }
