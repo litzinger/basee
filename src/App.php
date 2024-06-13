@@ -230,7 +230,11 @@ class App
             return [self::userData('role_id')];
         }
 
-        return ee()->session->getMember()->getAllRoles()->pluck('role_id');
+        if (isset(ee()->session)) {
+            return ee()->session->getMember()->getAllRoles()->pluck('role_id');
+        }
+
+        return [];
     }
 
     /**
