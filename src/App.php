@@ -155,6 +155,11 @@ class App
     {
         $version = ee()->config->config['app_version'] ?? 0;
 
+        // If an add-on using this is present when EE is installed, it won't find the version.
+        if (\defined('INSTALLER') && INSTALLER === true) {
+            return 0;
+        }
+
         if (defined('APP_VER')) {
             $version = APP_VER;
         }
