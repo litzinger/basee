@@ -265,6 +265,8 @@ class App
             'newFileManager' => '7.1',
             'fieldNameHints' => '7.4',
             'categoryPermissions' => '7.4',
+            'generators' => '7.5',
+            'formValidation' => '7.5',
         ];
 
         if ($featureName === 'pro') {
