@@ -8,7 +8,6 @@ namespace Litzinger\Basee;
  * @package     ExpressionEngine
  * @category    Basee
  * @author      Brian Litzinger
- * @copyright   Copyright (c) 2022 - BoldMinded, LLC
  * @link        https://github.com/litzinger/basee
  * @license     MIT
  */

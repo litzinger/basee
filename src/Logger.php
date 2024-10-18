@@ -1,5 +1,15 @@
 <?php
 
+namespace Litzinger\Basee;
+
+/**
+ * @package     ExpressionEngine
+ * @category    Basee
+ * @author      Brian Litzinger
+ * @link        https://github.com/litzinger/basee
+ * @license     MIT
+ */
+
 /*
  Usage
 
@@ -21,7 +31,6 @@
 
  */
 
-namespace Litzinger\Basee;
 
 class Logger
 {
