@@ -15,12 +15,12 @@ abstract class AbstractUpdate
     /**
      * @var array
      */
-    private $hookTemplate = array();
+    private $hookTemplate = [];
 
     /**
      * @param array $hooks
      */
-    protected function addHooks($hooks = array())
+    protected function addHooks($hooks = [])
     {
         if (empty($hooks)) {
             return;
@@ -32,10 +32,11 @@ abstract class AbstractUpdate
             $hook = array_merge($this->getHookTemplate(), $hook);
 
             /** @var \CI_DB_result $query */
-            $query = ee()->db->get_where('extensions', array(
+            $query = ee()->db->get_where('extensions', [
                 'hook' => $hook['hook'],
-                'class' => $hook['class']
-            ));
+                'class' => $hook['class'],
+                'priority' => $hook['priority'],
+            ]);
 
             if($query->num_rows() == 0) {
                 ee()->db->insert('extensions', $hook);
@@ -47,7 +48,7 @@ abstract class AbstractUpdate
      * @param array $actions
      * @throws \Exception
      */
-    protected function addActions($actions = array())
+    protected function addActions($actions = [])
     {
         if (empty($actions)) {
             return;
@@ -59,10 +60,10 @@ abstract class AbstractUpdate
             }
 
             /** @var \CI_DB_result $query */
-            $query = ee()->db->get_where('actions', array(
+            $query = ee()->db->get_where('actions', [
                 'method' => $action['method'],
-                'class' => $action['class']
-            ));
+                'class' => $action['class'],
+            ]);
 
             if($query->num_rows() == 0) {
                 ee()->db->insert('actions', $action);
@@ -74,7 +75,7 @@ abstract class AbstractUpdate
      * @param $class
      * @param array $hooks
      */
-    protected function removeHooks($class, $hooks = array())
+    protected function removeHooks($class, $hooks = [])
     {
         if (empty($hooks)) {
             return;
@@ -90,7 +91,7 @@ abstract class AbstractUpdate
      * @param $class
      * @param array $methods
      */
-    protected function removeActions($class, $methods = array())
+    protected function removeActions($class, $methods = [])
     {
         if (empty($methods)) {
             return;
