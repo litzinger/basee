@@ -173,7 +173,7 @@ class License
      */
     public static function getUpdateAvailableNotice(string $addonShortName, string $licenseAccountUrl)
     {
-        return '$(\'div[data-addon="' . $addonShortName . '"] .add-on-card__text\').append(\'<p class="st-open"><b>Update Available</b></p>\');
+        return '$(\'div[data-addon="' . $addonShortName . '"] .add-on-card__text\').append(\'<p class="license-status-badge license-status-update_available"><b>Update Available</b></p>\');
                 if (window.location.href.indexOf(\'' . $addonShortName . '\') !== -1 && $(\'body.add-on-layout .main-nav__title .license-status-badge\').length === 0) {
                     $(\'body.add-on-layout .main-nav__title\').css(\'position\', \'relative\').append(\'<a class="license-status-badge license-status-update_available" href="' . $licenseAccountUrl . '" target="_blank">Update Available</a>\').children(\'h1\').css({ \'display\': \'inline-block\', \'vertical-align\': \'middle\' });
                 };';
