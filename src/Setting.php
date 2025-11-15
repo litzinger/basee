@@ -57,8 +57,10 @@ class Setting
      * @param array $post
      * @return bool|array
      */
-    public function save(array $post = [])
-    {
+    public function save(
+        array $post = [],
+        int|null $siteId = null
+    ) {
         $errors = [];
 
         foreach ($this->getAllSettings() as $key => $value) {
@@ -86,8 +88,8 @@ class Setting
                 $data['type'] = 'string';
             }
 
-            $where['site_id'] = ee()->config->item('site_id');
-            $data['site_id'] = ee()->config->item('site_id');
+            $where['site_id'] = $siteId ?? ee()->config->item('site_id');
+            $data['site_id'] = $siteId ?? ee()->config->item('site_id');
             $data['key'] = $key;
             $data['val'] = $value;
 
