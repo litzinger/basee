@@ -266,6 +266,7 @@ class App
             'categoryPermissions' => '7.4',
             'generators' => '7.5',
             'formValidation' => '7.5',
+            'perItemFrontEdit' => '7.6',
         ];
 
         if ($featureName === 'pro') {
